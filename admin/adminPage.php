@@ -1,4 +1,10 @@
 <?php
+/**
+ *  Class for creating a admin page
+ *  @author Erwin Goossen
+ *  
+ */
+
 include_once('../dbElements/dbLogin.php');
 include_once('../dbElements/dbBlog.php');
 include_once('../dbElements/dbNews.php');
@@ -22,6 +28,10 @@ class AdminPage
 	public $includeTemplate;
 	public $tpl;
 	
+	/**
+	 * Constructor
+	 * @param string $param Parameter given with the url
+	 */
 	public function __construct($param) {
 		$this->param = $param; 
 		$this->tpl = new SmartyTemplate();
@@ -31,11 +41,19 @@ class AdminPage
 		$this->tpl->assign('sessionUser', $_SESSION['user']);
 	}
 	
+	/**
+	 *	Set the template to use withe the page
+	 *  @param string $template Name of the template
+	 */
 	public function setIncludeTemplate($template) {
 		$this->includeTemplate = $template;
 		$this->tpl->assign('template', $this->includeTemplate);
 	}
 	
+	/**
+	 *  Function for showing the page
+	 *
+	 */
 	public function showPage() {
 		$this->tpl->displayTemplate();
 	}

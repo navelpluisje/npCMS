@@ -1,4 +1,10 @@
 <?php
+/**
+ * Class for creating, updating and deleting Blogpages
+ * @author Erwin Goossen
+ * 
+ */
+
 include_once('adminValidate.php');
 
 class AdminBlogPage extends AdminPage
@@ -10,6 +16,10 @@ class AdminBlogPage extends AdminPage
 	protected $dbBlog = array();
 	protected $postFields;
 
+	/**
+	 * Constructor Checking which page to show and manage the templates
+	 * @param string $param Parameter given with the url
+	 */
 	public function __construct($param) {
 		parent::__construct($param);
 		$function = $this->param[2];

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class for creating, updating and deleting Pagepages
+ * @author Erwin Goossen
+ * 
+ */
 include_once('adminValidate.php');
 
 class AdminPagesPage extends AdminPage
@@ -75,18 +80,30 @@ class AdminPagesPage extends AdminPage
 		$this->tpl->assign('error', $this->errorMessage);
 	}
 
+	/**
+	 *  Fetch list with all the pages
+	 *  Result will be assigned to template
+	 */
 	public function getPageItems() {
 		$this->dbPage = new DbPage();
 		$this->pageItems = $this->dbPage->getAll();
 		$this->tpl->assign('pageItems', $this->pageItems);
 	}
 
+	/**
+	 *  Fetch page with the given Id
+	 *  @param $id Id of the page
+	 *  Result will be assigned to the template
+	 */
 	public function getPageItem($id) {
 		$this->dbPage = new DbPage();
 		$this->pageItems = $this->dbPage->get($id);
 		$this->tpl->assign('pageItem', $this->pageItems);
 	}
 
+	/**
+	 *	Create a new page
+	 */
 	public function addPageItem() {
 		$this->dbPage = new DbPage();
 		$this->dbPage->init(0, 
@@ -105,6 +122,10 @@ class AdminPagesPage extends AdminPage
 		}
 	}
 
+	/**
+	 *	Update an existing page
+	 *  @param $id The Id of the page 
+	 */
 	public function editPageItem($id) {
 		$this->dbPage = new DbPage();
 		$this->dbPage->init($this->tempNewsItem['id'],  
@@ -123,6 +144,10 @@ class AdminPagesPage extends AdminPage
 		}
 	}
 
+	/**
+	 *  Delete a page
+	 *  @param $id The Id of the page to delete
+	 */
 	public function deleteNewsItem($id) {
 		$this->dbPage = new DbPage();
 		try {
@@ -133,24 +158,40 @@ class AdminPagesPage extends AdminPage
 		}
 	}
 
+	/**
+	 *  Get a list of all the users
+	 *  Result will be assigned to the template
+	 */
 	public function getUsers() {
 		$this->dbUsers = new DbUser();
 		$this->users = $this->dbUsers->getAll();
 		$this->tpl->assign('users', $this->users);
 	}
 
+	/**
+	 *  Get a list of all the pagetypes
+	 *  Result will be assigned to the template
+	 */
 	public function getPageTypes() {
 		$this->dbPageTypes = new DbPageType();
 		$this->pageTypes = $this->dbPageTypes->getAll();
 		$this->tpl->assign('types', $this->pageTypes);
 	}
 
+	/**
+	 *  Get a list of all the pages with children
+	 *  Result will be assigned to the template
+	 */
 	public function getPageParents() {
 		$this->dbPageParents = new DbPage();
 		$this->pageParents = $this->dbPageParents->getAllParents();
 		$this->tpl->assign('pages', $this->pageParents);
 	}
 
+	/**
+	 *  Check if all the fields are valid
+	 *  @return boolean
+	 */
 	private function validateFields() {
 		$valid   = true;
 		$message = '';
