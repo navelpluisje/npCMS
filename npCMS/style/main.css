@@ -1,0 +1,323 @@
+/*
+   main.css
+   npCMS
+   
+   Created by Erwin Goossen on 2011-09-19.
+   Copyright 2011 Erwin Goossen. All rights reserved.
+*/
+
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	color : #fefefe;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	background-color: #262026;
+}
+#wrapper {
+	position: relative;
+	width: 1024px;
+	height: 740px;
+	top: 0;
+	margin-left: auto;
+	margin-right: auto;
+	overflow: hidden;
+	background-color: #262026;
+	background-image: url('../img/star3.png'), url('../img/star2.png'), url('../img/star3.png'), url('../img/star1.png'), url('../img/star2.png'),
+	                  url('../img/star3.png'), url('../img/star2.png'), url('../img/star1.png'), url('../img/star3.png'), url('../img/bg.png');
+	background-position: 10% 10%, 80% 25%, 40% 70%, 90% 85%, 5% 75%, 85% 5%, 30% 95%, 25% 30%, 70% 65%, left top;
+	background-repeat: no-repeat;
+}
+
+.twinkle {
+	position: fixed;
+	right: 0px;
+	top: 0px;
+	width: 358px;
+	height: 355px;
+	background-image: url('../img/twinkle.png');
+	background-repeat: no-repeat;
+}
+
+#title {
+	position: absolute;
+	background-image: url('../img/diamond.png');
+	background-position: center center;
+	background-repeat: no-repeat;
+	text-align: center;
+	top: 170px;
+	left: 162px;
+	width: 700px;
+	height: 400px;
+}
+
+#title .titleText {
+	position: relative;
+	font-family: 'Michroma', sans-serif;
+	font-size: 140px;
+	color: #e8008f;
+	top: 40px;
+}
+
+#title .titleText a img{
+	border: none;
+}
+
+#title .titleText a {
+	filter: alpha(opacity = 80);
+	opacity: 0.8;
+	border: none;
+	position: relative;
+	display: block;
+	margin-top: 20px;
+	font-size: 60px;
+	text-decoration: none;
+	color: #e8008f;
+}
+
+#title .titleText a:hover {
+	filter: alpha(opacity = 90);
+	opacity: 0.9;
+}
+
+ul#menu {
+	list-style: none;
+}
+
+ul#menu li a {
+	display: inline-block;
+	position: absolute;
+	width: 400px;
+	font-family: 'Michroma', sans-serif;
+	font-size: 56px;
+	text-decoration: none;
+	text-align: center;
+}
+
+.menuItem a{
+	filter: alpha(opacity = 45);
+	opacity: 0.45;
+}
+
+.menuItem a:hover {
+	filter: alpha(opacity = 100);
+	opacity: 1;
+}
+
+/* ContentBlock */
+#content{
+	position: absolute;
+	left: 50px;
+	top: 50px;
+	width: 800px;
+	height: 600px;
+}
+
+#content .contentBlock {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+}
+
+#content .background{
+	background-color: #222222;
+	border: solid 3px #E8008F;
+	filter: alpha(opacity = 70);
+	opacity: 0.7;
+	z-index: 50;
+	background-image: url('../img/small_diamonds.png');
+	background-position: right bottom;
+	background-repeat: no-repeat
+}
+
+#content .forground{
+	width: 780px;
+	height: 580px;
+	z-index: 100;
+	padding: 15px;
+	overflow-y: auto;
+}
+
+#content .forground .close {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+}
+
+#content h1 {
+	font-family:  'Michroma', sans-serif;	
+}
+
+#content p {
+	margin-bottom: 10px;
+}
+
+#content img {
+	float: right;
+	margin: 4px 0 4px 4px;
+}
+
+.close a img {
+	border: none;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+/*    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0.5);*/
+}
+
+.close a img:hover {
+    -webkit-transform: rotate(22deg);
+    -moz-transform: rotate(22deg);
+    -ms-transform: rotate(22deg);
+/*    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0.25);*/
+}
+/* End ContentBlock */
+
+/* Listpages: News an blog */
+.itemList {
+	position: relative;
+	height: 460px;
+	overflow-y: auto;
+}
+
+.itemList.large {
+	height: 520px;
+}
+
+.itemListAdd {
+	position: relative;
+	padding-top: 30px;
+}
+
+.itemListAdd a, #contactForm input[type=submit] {
+	display: block;
+	background-color: #222222;
+	width: 120px;
+	border: 1px solid #fefefe;
+	padding: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-ms-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.itemListAdd a:hover, #contactForm input[type=submit]:hover {
+	background-color: #666666;
+}
+
+.listItem h3,  #contactInfo h3,  #contactForm h3 {
+	color: #fefefe;
+	border-bottom: 1px solid #545454;
+	margin-top: 10px;
+}
+
+.listItem h3 .date {
+	display: inline=block;
+	float: right;
+	font-size: 14px;
+}
+
+.listItem h3 a, .listItem a.readmore, a.add, #contactInfo a, #contactForm input[type=submit] {
+	color: #bababa;
+	text-decoration: none;
+}
+
+.listItem h3 a:hover, .listItem a.readmore:hover, a.add:hover, #contactInfo a:hover, #contactForm input[type=submit]:hover {
+	color: #fefefe;
+	text-shadow: 0 0 3px #fefefe;
+}
+
+.listItem p, #contactInfo p, #contactInfo ul,  #contactForm form  {
+	margin-left: 25px;
+}
+
+a.add span{
+	display: inline-block;
+	float: left;
+	width: 20px;
+	height: 20px;
+	background-image: url('../functions/image.php?r=0&g=255&b=0');
+	background-size: contain;
+	margin-right: 5px;
+}
+
+/* Blog */
+.spelregels {
+	font-size: 12px;
+}	
+
+ul.spelregels {
+	list-style: none;
+}
+
+ul.spelregels li {
+	display: block;
+	margin-top: 10px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #545454;
+}
+
+/* Contact form*/
+#contactInfo {
+	position: relative;
+	display: block;
+	float: left;
+	width: 35%;
+}
+#contactForm {
+	position: relative;
+	display: block;
+	float: right;
+	width: 60%;
+}
+
+#contactForm label {
+	position: relative;
+	display: block;
+	width: 150px;
+}
+
+#contactForm input[type=text], #contactForm input[type=email], #contactForm textarea {
+	position: relative;
+	display: block;
+	width: 350px;
+}
+
+#contactForm input[type=submit] {
+	position: relative;
+	margin-top: 20px;
+	font-size: 16px;
+}
+
+.errorMessage {
+	margin-top: 25px;
+	padding: 5px;
+	border: 1px solid #ff0000;
+	color: #ff0000;
+	background-color: #553333;
+	display: none;
+}
+
+.show {
+	display: block;
+}
+
+/* npPlugins - npToolTip*/
+.nptContent {
+	background-color: #222222;
+	border: 1px solid #111111;
+	border-radius: 3px;
+	box-shadow: 2px 2px 3px #333333;
+	padding: 3px;
+	font-size: 12px;
+	z-index: 5000;
+	filter: alpha(opacity = 80);
+	opacity: 0.8;
+	height: 16px;
+}
+

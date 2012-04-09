@@ -1,0 +1,21 @@
+/*
+   ie.css
+   
+   Created by Erwin Goossen on 2011-01-26.
+   Copyright 2012 Erwin Goossen. All rights reserved.
+*/
+
+/* Create a static background */
+#wrapper {
+	background-image: url('../img/bg_ie6.png');
+}
+
+.close a img {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=-0.70710678, M21=0.70710678, M22=0.70710678,sizingMethod='auto expand')";
+	filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=-0.70710678, M21=0.70710678, M22=0.70710678,sizingMethod='auto expand');
+}
+
+.close a img:hover {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.92718385, M12=-0.37460659, M21=0.37460659, M22=0.92718385,sizingMethod='auto expand')";
+	filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.92718385, M12=-0.37460659, M21=0.37460659, M22=0.92718385,sizingMethod='auto expand');
+}

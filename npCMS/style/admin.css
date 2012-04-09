@@ -1,0 +1,426 @@
+/*
+   main.css
+   npCMS
+   
+   Created by Erwin Goossen on 2011-09-19.
+   Copyright 2011 Erwin Goossen. All rights reserved.
+*/
+
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	color : #222222;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	background-color: #ffffff;
+}
+
+#wrapper {
+	position: relative;
+	width: 1024px;
+	height: 740px;
+	top: 0;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#title {
+	position: absolute;
+	background-position: center center;
+	background-repeat: no-repeat;
+	text-align: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 40px;
+	border-bottom: 1px solid #888888;
+	font-size: 32px;
+	float: left;
+}
+
+#title .titleUser {
+	position: absolute;
+	display: block;
+	right: 0px;
+	top: 5px;
+	font-size: 14px;
+}
+
+#menu {
+	position: absolute;
+	padding-right: 5px;
+	top: 50px;
+	border-right: 1px solid #888888;
+	float: left;
+	height: 90%;
+	width: 180px;
+}
+
+#menu ul {
+	list-style: none;
+}
+
+#menu ul li {
+	max-height: 26px;
+	margin-bottom: 6px;
+	background-image: url('../img/menuIcons.png');
+	background-repeat: no-repeat;
+}
+
+#menu ul li.home {
+	background-position: 0 1px;
+}
+
+#menu ul li.user {
+	background-position: 0 -28px;
+}
+
+#menu ul li.news {
+	background-position: 0 -54px;
+}
+
+#menu ul li.blog {
+	background-position: 0 -84px;
+}
+
+#menu ul li.page {
+	background-position: 0 -111px;
+}
+
+#menu ul li.docu {
+	background-position: 0 -139px;
+}
+
+#menu ul li.pict {
+	background-position: 0 -165px;
+}
+
+#menu ul li a {
+	display: inline-block;
+	width: 140px;
+	font-size: 18px;
+	color: #222222;
+	text-decoration: none;
+	padding: 2px 2px 2px 30px;
+}
+
+#menu ul li a:hover {
+	text-decoration: underline;
+	outline: dotted 1px #888888;
+}
+
+
+/* ContentBlock */
+#content {
+	position: absolute;
+	padding-left: 5px;
+	float: left;
+	top: 50px;
+	left: 200px;
+	right: 0px;
+}
+
+#content form .fields {
+	max-height: 500px;
+	overflow-y: auto;
+}
+
+.textAreaAlign {
+	vertical-align:top;
+}
+
+.items {
+	max-height: 550px;
+	overflow-y: auto;
+}
+
+.items .odd {
+	background-color: #fafafa;
+}
+
+.items .even:hover, .items .odd:hover{
+	background-color: #f0f0f0;
+}
+
+.items .item {
+	padding: 5px;
+}
+
+.items .item h3 a {
+	color: #262026;
+}
+
+.items .item h3 a:hover {
+	color: #777777;
+}
+
+.items .item h3.blocked a {
+	color: #dd2222;
+}
+
+.items .item h3 a:hover {
+	color: #aa0000;
+}
+
+.items .item .thumb {
+	height: 60px;
+	display: inline-block;
+	float: left;
+	margin-right: 10px;
+}
+
+.inputRow {
+	display: block;
+	margin : 2px 0 7px 0;
+}
+
+.userImage {
+	float: right;
+	margin-right: 250px;
+}
+
+.userImage img{
+	display: block;
+	height: 120px;
+	width:  120px;
+	box-shadow: 3px 3px 4px #888888;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+.userPicUpload {
+	display:block;
+}
+
+#imageFile {
+	display: none;
+}
+
+.buttons a {
+	display: block;
+	overflow: hidden;
+	float: right;
+	width: 24px;
+	background-image: url('../img/icons.png');
+}
+
+.buttons.top a{
+	margin: -30px 5px 0 0;
+}
+
+.buttons.bottom a{
+	margin: 5px 5px 0 0;
+}
+
+/* button icons */
+.buttons a.remove { background-position: 0 0; }
+.buttons a.add { background-position: -24px 0; }
+.buttons a.edit { background-position: -48px 0; }
+.buttons a.logout { background-position: -72px 0; }
+.buttons a.guest { background-position: 0 -24px; }
+.buttons a.ip { background-position: -24px -24px; }
+
+.buttons a.login {
+	background-image: none;
+	width: auto;
+	padding: 0px 3px 0 3px;
+	text-decoration: none;
+	color : #222222;
+	text-shadow: 2px 2px 1px #fefefe;
+	cursor: inherit;
+}
+
+#content label {
+	display: inline-block;
+	width: 150px;
+}
+
+#content input[type='text'], #content input[type='password'], textarea {
+	display: inline-block;
+	width: 250px;
+	border: 1px solid #888888;
+	height: 24px;
+	border-radius: 3px;
+	padding-left: 4px;
+	font-size: 14px;
+}
+
+textarea {
+	height: 80px;
+}
+
+#content input[type='submit'], input[type='button'], .buttons a, #content button {
+	display: inline-block;
+	border: 1px solid #888888;
+	height: 24px;
+	background-color: #efefef;
+	border-radius: 3px;
+	font-size: 16px;
+	box-shadow: 1px 1px 0 #dddddd;
+	float: right;
+}
+
+#content input[type='submit'], input[type='button'], #content button {
+	width: 100px;
+	margin-top: 5px;
+	text-shadow: 1px 1px 0 #ffffff;
+	height: 26px;
+}
+
+#content input[type='submit']:hover, #content input[type='button']:hover, #content .buttons a:hover, #content button:hover {
+	background-color: #dedede;
+}
+
+#content input[type='submit']:active, #content input[type='button']:active, #content .buttons a:active, #content button:active {
+	background-color: #cecece;
+	box-shadow: -1px -1px 0 #dddddd;
+}
+
+.buttons a.left, #content input[type='submit'].left, input[type='button'].left, #content button.left {
+	border-top-right-radius: 0; 
+	border-bottom-right-radius: 0; 
+	border-top-left-radius: 3px; 
+	border-bottom-left-radius: 3px; 
+	margin-right: 0;
+}
+
+.buttons a.center, #content input[type='submit'].center, input[type='button'].center, #content button.center {
+	border-top-right-radius: 0; 
+	border-bottom-right-radius: 0; 
+	border-top-left-radius: 0; 
+	border-bottom-left-radius: 0; 
+	margin-right: 0;
+}
+
+.buttons a.right, #content input[type='submit'].right, input[type='button'].right, #content button.right {
+	border-top-right-radius: 3px; 
+	border-bottom-right-radius: 3px; 
+	border-top-left-radius: 0; 
+	border-bottom-left-radius: 0; 
+}
+
+#content select {
+	display: inline-block;
+	width: 150px;
+	border: 1px solid #888888;
+	height: 26px;
+	border-radius: 3px;
+	padding-left: 4px;
+	font-size: 14px;
+}
+
+#content h1 {
+	margin-bottom: 20px;
+}
+
+#content img {
+	border-radius: 3px;
+}
+
+.errorMessage {
+	border: 1px solid #ff0000;
+	border-radius: 5px;
+	background-color: #ffeeee;
+	color: #ff0000;
+	padding: 10px;
+	width: 75%;
+	font-size: 12px;
+	margin-top: 60px;
+}
+
+/* End ContentBlock */
+
+/* Contact form*/
+#contactInfo {
+	position: relative;
+	display: block;
+	float: left;
+	width: 35%;
+}
+
+#contactForm {
+	position: relative;
+	display: block;
+	float: right;
+	width: 60%;
+}
+
+#contactForm label {
+	position: relative;
+	display: block;
+	width: 150px;
+}
+
+#contactForm input[type=text], #contactForm input[type=email] {
+	position: relative;
+	display: block;
+	width: 350px;
+}
+
+
+.buttons .bottomBar {
+	display: block;
+	margin-top: -24px;
+	float: left;	
+}
+
+/* startPage */
+.start ul {
+	list-style: none;
+}
+
+.start ul li {
+	display: inline-block;
+}
+
+.start ul li.user a { background-position: 0 0; }
+.start ul li.news a { background-position: -200px 0; }
+.start ul li.blog a { background-position: -400px 0; }
+.start ul li.page a { background-position: 0 -200px; }
+.start ul li.pict a { background-position:  -200px -200px; }
+.start ul li.docu a { background-position: -400px -200px; }
+
+.start ul li a {
+	display: inline-block;
+	position: relative;
+	width: 200px;
+	height: 200px;
+	margin: 20px;
+	border-radius: 5px;
+	border: 1px solid #888888;
+	background-color: #fefefe;
+	background-image: url('../img/start_bg.png');
+	box-shadow: 2px 2px 2px #aaaaaa;
+	text-align: center;
+	text-decoration: none;
+}
+
+.start ul li a:hover {
+	background-color: #f0f0f0;
+}
+
+.start ul li a:active {
+	background-color: #e0e0e0;
+	box-shadow: -1px -1px 2px #aaaaaa;
+}
+
+.start ul li a span {
+	display: block;
+	position: relative;
+	margin-top: 85%;
+	color: #222222;
+	font-weight: bold;
+}
+
+/*  npTooltip  */
+.nptContent {
+	background-color: #fefefe;
+	border: 1px solid #888888;
+	border-radius: 3px;
+	box-shadow: 2px 2px 3px #aaaaaa;
+	padding: 3px;
+	font-size: 12px
+}

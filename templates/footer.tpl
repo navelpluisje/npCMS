@@ -1,0 +1,2 @@
+<div id="npFooter">
+</div>
