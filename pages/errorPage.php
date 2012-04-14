@@ -5,7 +5,7 @@ class ContentPage extends Page
 {
 	public function __construct($param) {
 		parent::__construct($param);
-		$this->setIncludeTemplate('contentPage.tpl');
+		$this->setIncludeTemplate('errorPage.tpl');
 		$this->setPageContent();
 	}
 	

@@ -1,9 +1,10 @@
 <?php
-include_once('../pages/createPage.php');
+include_once( 'initials.php');
+include_once( $dir['pages'].'/createPage.php');
 
 if (isset($_GET['a'])) {
 	$param = split('/',$_GET['a']);
-	array_unshift($param, "");
+	array_unshift($param, '');
 }
 else {
 	$param = split('/',$_SERVER['PATH_INFO']);

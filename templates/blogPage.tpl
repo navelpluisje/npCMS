@@ -2,7 +2,7 @@
 	<div class="contentBlock background">
 	</div>
 	<div class="contentBlock forground">
-		<span class="close"><a href="{$pageBase}/index/1"><img src="/npCMS/img/close.png" alt="close" title="sluiten"/></a></span>
+		<span class="close"><a href="{#pageBase#}/{#indexPage#}/1"><img src="{#pageBase#}/img/close.png" alt="close" title="sluiten"/></a></span>
 		<h1>Gastenboek</h1>
 		<div class="itemList">
 		{if $empty==true}
@@ -26,7 +26,7 @@
 		{/if}
 		</div>
 		<div class="itemListAdd">
-			<a href="{$pageBase}/index/{$pageId}/add" class="add" title="Schrijf een bericht!!"><span>&nbsp;</span>Schrijven</a>
+			<a href="{#pageBase#}/{#indexPage#}/{$pageId}/add" class="add" title="Schrijf een bericht!!"><span>&nbsp;</span>Schrijven</a>
 		</div>
 	</div>
 </div>

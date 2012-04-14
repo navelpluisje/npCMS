@@ -88,6 +88,7 @@ class DbNews
     function update($id) {
         global $db;
 		$values = $this->createValueList();
+		$values->
         $result = $db->autoExecute('news', $values, DB_AUTOQUERY_UPDATE, 'id =' . $db->quote($id));
 		if ( ! DB::isError($result)){
 			return $result;	
@@ -100,6 +101,7 @@ class DbNews
     function insert() {
         global $db;
 		$values = $this->createValueList();
+		$values['date_created'] = date ("Y-m-d H:m:s");
         $result = $db->autoExecute('news', $values, DB_AUTOQUERY_INSERT);
 		if ( ! DB::isError($result)){
 			return $result;
@@ -110,9 +112,6 @@ class DbNews
     }
 	
 	function createValueList() {
-		if ($this->date_created) {
-			$this->date_created = date ("Y-m-d H:m:s");
-		}
 		$values = array(
 		   	'title'         => $this->title,
 		   	'body_text'     => $this->body_text,

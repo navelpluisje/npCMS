@@ -2,7 +2,7 @@
 	<div class="contentBlock background">
 	</div>
 	<div class="contentBlock forground">
-		<span class="close"><a href="{$pageBase}/index/1"><img src="/npCMS/img/close.png" alt="close" title="sluiten"/></a></span>
+		<span class="close"><a href="{#pageBase#}/{#indexPage#}/1"><img src="{#pageBase#}/img/close.png" alt="close" title="sluiten"/></a></span>
 		<h1>Gastenboek</h1>
 		<!-- Contactgegevens -->
 		<span id="contactInfo">
@@ -32,7 +32,7 @@
 		{else}
 			<div id="contactForm"> 
 				<h3>Nieuw bericht</h3>
-				<form class="blog" action="{$pageBase}/index/{$pageId}/new" method="post">
+				<form class="blog" action="{#pageBase#}/{#indexPage#}/{$pageId}/new" method="post">
 					<label>Naam</label>
 					<input type="text" name="name" value="{if $errorMessage != ''}{$name}{/if}" />
 					<label>Email</label>

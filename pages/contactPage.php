@@ -1,6 +1,8 @@
 <?php
-include_once('../admin/adminValidate.php');
-include_once('../classes/mail.php');
+global $dir;
+
+include_once( $dir['admin'] . '/adminValidate.php');
+include_once( $dir['classes'] . '/mail.php');
 
 class ContactPage extends Page
 {
@@ -14,7 +16,7 @@ class ContactPage extends Page
 		
 		if (isset($_POST['submit'])) {
 			if ($this->createMail()) {
-				$this->tpl->assign('send', true);
+				$this->getSmartyTpl()->assign('send', true);
 			}	
 		}
 	}
@@ -37,11 +39,11 @@ class ContactPage extends Page
 		}
 
 		if (strlen($error) > 0) {
-			$this->tpl->assign('name', $name);
-			$this->tpl->assign('mail', $mail);
-			$this->tpl->assign('subject', $subject);
-			$this->tpl->assign('content', $content);
-			$this->tpl->assign('errorMessage', $error);
+			$this->getSmartyTpl()->assign('name', $name);
+			$this->getSmartyTpl()->assign('mail', $mail);
+			$this->getSmartyTpl()->assign('subject', $subject);
+			$this->getSmartyTpl()->assign('content', $content);
+			$this->getSmartyTpl()->assign('errorMessage', $error);
 			$done = false;
 		}
 		else {

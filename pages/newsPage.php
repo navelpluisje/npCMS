@@ -1,6 +1,5 @@
 <?php
 
-
 class NewsPage extends Page
 {
 	protected $dbNews;
@@ -8,7 +7,7 @@ class NewsPage extends Page
 	
 	public function __construct($param) {
 		parent::__construct($param);
-		$id = $this->param[2];
+		$id = $param[2];
 		if ($id > 0) {
 			$this->setIncludeTemplate('newsItemPage.tpl');
 			$this->getNewsItem($id);
@@ -22,13 +21,13 @@ class NewsPage extends Page
 	public function getNewsItems() {
 		$this->dbNews = new DbNews();
 		$this->newsItems = $this->dbNews->getAll();
-		$this->tpl->assign('newsItems', $this->newsItems); 
+		$this->getSmartyTpl()->assign('newsItems', $this->newsItems); 
 	}
 
 	public function getNewsItem($id) {
 		$this->dbNews = new DbNews();
 		$this->newsItems = $this->dbNews->get($id);
-		$this->tpl->assign('newsItems', $this->newsItems); 
+		$this->getSmartyTpl()->assign('newsItems', $this->newsItems); 
 	}
 }
 ?>

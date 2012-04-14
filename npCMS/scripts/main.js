@@ -36,7 +36,7 @@ $(document).ready(function() {
 		$('.contentBlock h3').css('borderColor', color);
 		$('#content .background').css('borderColor', color);
 		var parts = color.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-		$('.close a img').attr('src', '/npCMS/functions/image.php?r=' + parts[1] + '&g=' + parts[2] + '&b=' + parts[3]);
+		$('.close a img').attr('src', '/functions/image.php?r=' + parts[1] + '&g=' + parts[2] + '&b=' + parts[3]);
 	}
 	
 	// Create navelpluisje footer

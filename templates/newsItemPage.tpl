@@ -3,7 +3,7 @@
 	</div>
 	<div class="contentBlock forground">
 		
-		<span class="close"><a href="{$pageBase}/index/{$pageId}"><img src="/npCMS/img/close.png" alt="close" title="sluiten"/></a></span>
+		<span class="close"><a href="{#pageBase#}/{#indexPage#}/{$pageId}"><img src="{#pageBase#}/img/close.png" alt="close" title="sluiten"/></a></span>
 		<h1>Nieuws</h1>
 		<div class="itemList large">
 			<div class="listItem">

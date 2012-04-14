@@ -1,5 +1,6 @@
 <?php
-include_once('../admin/adminValidate.php');
+global $dir;
+include_once( $dir['admin'] . '/adminValidate.php');
 
 class BlogPage extends Page
 {
@@ -14,7 +15,7 @@ class BlogPage extends Page
 	
 	public function __construct($param) {
 		parent::__construct($param);
-		$id = $this->param[2];
+		$id = $param[2];
 		switch ($id) {
 			case 'add' :
 				$this->setIncludeTemplate('newBlogPage.tpl');
@@ -32,19 +33,19 @@ class BlogPage extends Page
 						switch ($this->checkGuestIp($_SERVER["REMOTE_ADDR"])) {
 							case 1 : // excisting guest
 								$this->createBlogItem();
-								$this->tpl->assign('message', 'Bericht met succes aangemaakt.');
-								$this->tpl->assign('send', true);
+								$this->getSmartyTpl()->assign('message', 'Bericht met succes aangemaakt.');
+								$this->getSmartyTpl()->assign('send', true);
 								break;
 							case 2 : // new guest
 								$this->createGuest();
 								$this->createBlogItem();
-								$this->tpl->assign('message', 'Bericht met succes aangemaakt.');
-								$this->tpl->assign('send', true);
+								$this->getSmartyTpl()->assign('message', 'Bericht met succes aangemaakt.');
+								$this->getSmartyTpl()->assign('send', true);
 								break;
 							case 3 : // banned ip
-								$this->tpl->assign('message', 'Uw IP-addres en/of emailadres is geblokeerd.');
-							    $this->tpl->assign('explanation', 'Neem contact op als u ten onrechte geen berichten kunt plaatsen');
-								$this->tpl->assign('send', true);
+								$this->getSmartyTpl()->assign('message', 'Uw IP-addres en/of emailadres is geblokeerd.');
+							    $this->getSmartyTpl()->assign('explanation', 'Neem contact op als u ten onrechte geen berichten kunt plaatsen');
+								$this->getSmartyTpl()->assign('send', true);
 								break;
 							$this->createGuest();
 						}
@@ -68,10 +69,10 @@ class BlogPage extends Page
 		$this->dbBlog = new DbBlog();
 		try {
 			$this->blogItems = $this->dbBlog->getVisible();
-			$this->tpl->assign('blogItems', $this->blogItems);
+			$this->getSmartyTpl()->assign('blogItems', $this->blogItems);
 		}
 		catch (Exception $e) {
-			$this->tpl->assign('empty', true);
+			$this->getSmartyTpl()->assign('empty', true);
 		}
 	}
 	
@@ -133,11 +134,11 @@ class BlogPage extends Page
 			$valid = false;	 								 	
 		}
 		if ( ! $valid) {
-			$this->tpl->assign('name', $this->postFields['name']);
-			$this->tpl->assign('mail', $this->postFields['mail']);
-			$this->tpl->assign('title', $this->postFields['title']);
-			$this->tpl->assign('content', $this->postFields['content']);
-			$this->tpl->assign('errorMessage', $this->errorMessage);
+			$this->getSmartyTpl()->assign('name', $this->postFields['name']);
+			$this->getSmartyTpl()->assign('mail', $this->postFields['mail']);
+			$this->getSmartyTpl()->assign('title', $this->postFields['title']);
+			$this->getSmartyTpl()->assign('content', $this->postFields['content']);
+			$this->getSmartyTpl()->assign('errorMessage', $this->errorMessage);
 		}
 		return $valid;
 	}

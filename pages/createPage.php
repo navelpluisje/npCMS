@@ -1,10 +1,11 @@
 <?php
-include_once('page.php');
-include_once('contentPage.php');
-include_once('contactPage.php');
-include_once('newsPage.php');
-include_once('blogPage.php');
-//include_once('../dbElements/dbPageType.php');
+global $dir;
+include_once( $dir['pages']      . '/page.php');
+include_once( $dir['pages']      . '/contentPage.php');
+include_once( $dir['pages']      . '/contactPage.php');
+include_once( $dir['pages']      . '/newsPage.php');
+include_once( $dir['pages']      . '/blogPage.php');
+include_once( $dir['dbElements'] . '/dbPageType.php');
 
 class CreatePage
 {
@@ -13,6 +14,7 @@ class CreatePage
 	protected $param;
 	protected $page;
 	protected $dbPageType;
+	
 	/**
 	 * constructor of Page-class
 	 * @param $type: string, type of page
@@ -25,11 +27,11 @@ class CreatePage
 	}
 	
 	/**
-	 * 
+	 * Create a page using the pagetype
 	 */
 	public function initPage() {
 		$this->setPageType();
-		$page = null;
+		$page = null;		
 		switch ($this->pageType) {
 			case 'menu' :
 				$page = new Page($this->param);
@@ -50,10 +52,14 @@ class CreatePage
 		$page->showPage();
 	}
 	
+	/**
+	 * Gets the pageType corresponding to the parameter
+	 */
 	public function setPageType() {
 		$this->dbPageType = new DbPageType();
 		$result = $this->dbPageType->getPageType($this->pageTypeId);
 		$this->pageType = $result['type'];
 	}
 }
+
 ?>
