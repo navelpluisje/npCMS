@@ -16,12 +16,12 @@
 		    theme    : "advanced",
 		    mode     : "exact",
 		    elements : "body_text",
-		    plugins : "pagebreak",
+		    plugins : "pagebreak, images",
 		    theme_advanced_toolbar_location : "top",
 		    theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,"
 		    + "justifyleft,justifycenter,justifyright,justifyfull,formatselect,"
 		    + "bullist,numlist,outdent,indent",
-		    theme_advanced_buttons2 : "link,unlink,anchor,image,|,"
+		    theme_advanced_buttons2 : "link,unlink,anchor,images,|,"
 		    +"undo,redo,cleanup,code,|,sub,sup,charmap,|,pagebreak",
 		    theme_advanced_buttons3 : "",
 		    height:"350px",
