@@ -1,5 +1,7 @@
 <?php
-include_once('adminValidate.php');
+global $_DIR;
+
+include_once( $_DIR['admin'] . '/adminValidate.php');
 
 class AdminNewsPage extends AdminPage
 {
@@ -11,11 +13,13 @@ class AdminNewsPage extends AdminPage
 	protected $valid;
 
 	public function __construct($param) {
+		global $_DIR;
 		parent::__construct($param);
 		$function = $this->param[2];
 		$id = $this->param[3];
 		$this->valid = new Validation();
 		$this->tpl->assign('pBreak', $this->pBreak);
+
 		switch ($function) {
 			case 'new' :
 				$this->getUsers();
@@ -34,7 +38,7 @@ class AdminNewsPage extends AdminPage
 				}
 				else {
 					$this->addNewsItem();
-					header('Location: /admin.php/news/');
+					header('Location: ' . $_DIR['webRoot'] . '/' . $_DIR['adminPage'] . '/news/');
 				}
 				break;
 			case 'edit' :
@@ -55,12 +59,12 @@ class AdminNewsPage extends AdminPage
 				}
 				else {
 					$this->editNewsItem($id);
-					header('Location: /admin/news/');
+					header('Location: ' . $_DIR['webRoot'] . '/' . $_DIR['adminPage'] . '/news/');
 				}
 				break;
 			case 'delete' :
 				$this->deleteNewsItem($id);
-				header('Location: /admin/news/');
+				header('Location: ' . $_DIR['webRoot'] . '/' . $_DIR['adminPage'] . '/news/');
 				break;
 			default :
 				$this->getUsers();

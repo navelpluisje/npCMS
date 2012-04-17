@@ -1,11 +1,11 @@
 <?php
-global $dir;
-include_once( $dir['pages']      . '/page.php');
-include_once( $dir['pages']      . '/contentPage.php');
-include_once( $dir['pages']      . '/contactPage.php');
-include_once( $dir['pages']      . '/newsPage.php');
-include_once( $dir['pages']      . '/blogPage.php');
-include_once( $dir['dbElements'] . '/dbPageType.php');
+global $_DIR;
+include_once( $_DIR['pages']      . '/page.php');
+include_once( $_DIR['pages']      . '/contentPage.php');
+include_once( $_DIR['pages']      . '/contactPage.php');
+include_once( $_DIR['pages']      . '/newsPage.php');
+include_once( $_DIR['pages']      . '/blogPage.php');
+include_once( $_DIR['dbElements'] . '/dbPageType.php');
 
 class CreatePage
 {

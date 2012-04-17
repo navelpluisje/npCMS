@@ -1,9 +1,9 @@
 <?php
 session_start();
-include_once('../admin/createAdminPage.php');
-include_once('../configs/clMySmarty.php');
-include_once('../dbElements/dbUser.php');
-
+include_once('initials.php');
+include_once($_DIR['admin']      . '/createAdminPage.php');
+include_once($_DIR['configs']    . '/clMySmarty.php');
+include_once($_DIR['dbElements'] . '/dbUser.php');
 $name = $_POST['name'];
 $pass = $_POST['password'];
 
@@ -54,7 +54,8 @@ else {
 				$user = new DbUser;
 				try {
 					$password = $user->getPassword($name);
-					if ( $pass == $password['password']) {
+					$cleanpw = crypt(md5($pass),md5($name));
+					if ( $cleanpw == $password['password']) {
 						$_SESSION['loggedIn'] = true;
 						$_SESSION['user'] = $name;
 						setPage();

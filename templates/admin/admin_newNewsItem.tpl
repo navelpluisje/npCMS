@@ -1,6 +1,6 @@
 <div id="content" class="login">
 	<h1>Bericht {if $new OR !$edit}toevoegen{else}wijzigen{/if}</h1>
-	<form action="{if $new OR !$edit}/admin/news/add{else}/admin/news/change/{$newsItem.id}{/if}" method="post">
+	<form action="{if $new OR !$edit}{#pageBase#}/{#adminPage#}/news/add{else}{#pageBase#}/{#adminPage#}/news/change/{$newsItem.id}{/if}" method="post">
 		<span class="inputRow">
 			<label for="title">Titel</label>
 			<input type="text" name="title" value="{if $edit}{$newsItem.title}{/if}"/>
@@ -21,7 +21,7 @@
 				{section name="i" loop=$users}
 				<option value="{$users[i].id}" 	{if $users[i].id == $newsItem.user_id}
 													selected="selected"
-												{else if $users[i].screen_name==$sessionUser && $newItem}
+												{else if strtoupper($users[i].screen_name) == strtoupper($sessionUser) && $newItem}
 													selected="selected"
 												{/if}>{$users[i].screen_name}
 				</option>
@@ -38,7 +38,7 @@
 		</span>
 		<input type="hidden" name="id" value="{if $edit}{$newsItem.id}{else}0{/if}"/></span>
 		<div class="buttons">
-			<input type="button" onclick="parent.location='/admin/news';" class="right" value="Annuleer" />
+			<input type="button" onclick="parent.location='{#pageBase#}/{#adminPage#}/news';" class="right" value="Annuleer" />
 			<input type="submit" class="left" name="submit" value="{if $new OR !$edit}Voeg toe{else}Wijzig{/if}" />
 		</div>
 	</form>

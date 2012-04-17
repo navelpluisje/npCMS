@@ -1,6 +1,6 @@
 <?php
 include_once( 'initials.php');
-include_once( $dir['pages'].'/createPage.php');
+include_once( $_DIR['pages'].'/createPage.php');
 
 if (isset($_GET['a'])) {
 	$param = split('/',$_GET['a']);

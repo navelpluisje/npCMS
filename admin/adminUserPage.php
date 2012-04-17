@@ -1,5 +1,7 @@
 <?php
-include_once('adminValidate.php');
+global $_DIR;
+
+include_once( $_DIR['admin'] . '/adminValidate.php');
 
 class AdminUserPage extends AdminPage
 {
@@ -12,6 +14,7 @@ class AdminUserPage extends AdminPage
 	var $Upload;
 	
 	public function __construct($param) {
+		global $_DIR;
 		parent::__construct($param);
 		$this->valid = new Validation();
 		$function = $this->param[2];
@@ -29,7 +32,7 @@ class AdminUserPage extends AdminPage
 				}
 				else {
 					$this->addUser();
-					header('Location: /admin/users/');
+					header('Location: ' . $_DIR['webRoot'] . '/' . $_DIR['adminPage'] . '/users/');
 				}
 				break;
 			case 'edit' :
@@ -45,12 +48,12 @@ class AdminUserPage extends AdminPage
 				}
 				else {
 					$this->editUser($id);
-					header('Location: /admin/users/');
+					header('Location: ' . $_DIR['webRoot'] . '/' . $_DIR['adminPage'] . '/users/');
 				}
 				break;
 			case 'delete' :
 				$this->deleteUser($id);
-				header('Location: /admin/users/');
+				header('Location: ' . $_DIR['webRoot'] . '/' . $_DIR['adminPage'] . '/users/');
 				break;
 			default :
 				$this->setIncludeTemplate('admin/admin_userPage.tpl');
@@ -77,10 +80,11 @@ class AdminUserPage extends AdminPage
 			$this->createPicture();
 			$this->tempUser['picture'] = $this->thumb;
 		}
+		$cleanpw = crypt(md5($this->tempUser['password']),md5($this->tempUser['first_name']));
 		$this->dbUser = new DbUser();
 		$this->dbUser->init(0,
 							$this->tempUser['screen_name'],
-							$this->tempUser['password'],
+							$cleanpw,
 							$this->tempUser['first_name'],
 							$this->tempUser['last_name'],
 							$this->tempUser['email'],
@@ -103,10 +107,11 @@ class AdminUserPage extends AdminPage
 			$this->createPicture();
 			$this->tempUser['picture'] = $this->thumb;
 		}
+		$cleanpw = crypt(md5($this->tempUser['password']),md5($this->tempUser['first_name']));
 		$this->dbUser = new DbUser();
 		$this->dbUser->init($this->tempUser['id'],
 							$this->tempUser['screen_name'],
-							$this->tempUser['password'],
+							$cleanpw,
 							$this->tempUser['first_name'],
 							$this->tempUser['last_name'],
 							$this->tempUser['email'],

@@ -1,6 +1,6 @@
 <?php
-global $dir;
-include_once( $dir['admin'] . '/adminValidate.php');
+global $_DIR;
+include_once( $_DIR['admin'] . '/adminValidate.php');
 
 class BlogPage extends Page
 {
@@ -99,7 +99,13 @@ class BlogPage extends Page
 	
 	public function createGuest() {
 		$this->dbGuest = new DbGuest();
-		$this->dbGuest->init(0, $this->postFields['name'], $this->postFields['mail'], 0, $_SERVER['REMOTE_ADDR'], date ('Y-m-d H:m:s'), date ('Y-m-d H:m:s'));
+		$this->dbGuest->init(0, 
+							 htmlentities($this->postFields['name']), 
+							 $this->postFields['mail'], 
+				    		 0, 
+							 $_SERVER['REMOTE_ADDR'], 
+							 date ('Y-m-d H:m:s'), 
+							 date ('Y-m-d H:m:s'));
 		try {
 			$this->dbGuest->insert();
 			$this->dbGuest->getByIP($this->postFields['name'], $_SERVER['REMOTE_ADDR']);
@@ -111,7 +117,17 @@ class BlogPage extends Page
 
 	public function createBlogItem() {
 		$this->blogItem = new DbBlog();
-		$this->blogItem->init(0, $this->postFields['title'], $this->postFields['content'], '', $this->dbGuest->id, 0,  $this->dbGuest->name, '', 1, date ('Y-m-d H:m:s'), date ('Y-m-d H:m:s'));
+		$this->blogItem->init(0, 
+							  htmlentities($this->postFields['title']), 
+							  htmlentities($this->postFields['content']), 
+				              '', 
+				              $this->dbGuest->id, 
+							  0,  
+							  $this->dbGuest->name, 
+							  '', 
+							  1, 
+							  date ('Y-m-d H:m:s'), 
+							  date ('Y-m-d H:m:s'));
 		try {
 			$this->blogItem->insert();
 		}

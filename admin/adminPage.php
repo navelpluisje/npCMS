@@ -5,16 +5,15 @@
  *  
  */
 
-include_once('../dbElements/dbLogin.php');
-include_once('../dbElements/dbBlog.php');
-include_once('../dbElements/dbNews.php');
-include_once('../dbElements/dbUser.php');
-include_once('../dbElements/dbPage.php');
-include_once('../dbElements/dbPageType.php');
-include_once('../dbElements/dbGuest.php');
-include_once('../dbElements/dbNewsCategory.php');
-include_once('../admin/adminPictures.php');
-include_once('../configs/clMySmarty.php');
+include_once( $_DIR['dbElements'] . '/dbBlog.php');
+include_once( $_DIR['dbElements'] . '/dbNews.php');
+include_once( $_DIR['dbElements'] . '/dbUser.php');
+include_once( $_DIR['dbElements'] . '/dbPage.php');
+include_once( $_DIR['dbElements'] . '/dbPageType.php');
+include_once( $_DIR['dbElements'] . '/dbGuest.php');
+include_once( $_DIR['dbElements'] . '/dbNewsCategory.php');
+include_once( $_DIR['admin'] . '/adminPictures.php');
+include_once( $_DIR['config'] . '/clMySmarty.php');
 
 
 class AdminPage

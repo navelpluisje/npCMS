@@ -10,7 +10,7 @@
 	<!-- Javascript -->
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="/npCMS/scripts/tiny_mce/tiny_mce.js"></script>
+	<script type="text/javascript" src="{#pageBase#}/scripts/tiny_mce/tiny_mce.js"></script>
 	<script language="javascript" type="text/javascript">
 		tinyMCE.init({
 		    theme    : "advanced",
@@ -29,10 +29,10 @@
 		});
 	</script>
 
-	<script type="text/javascript" src="/npCMS/scripts/npSignature.js"></script>
-	<script type="text/javascript" src="/npCMS/scripts/npTooltip.js"></script>
-	<script type="text/javascript" src="/npCMS/scripts/admin.js"></script>
+	<script type="text/javascript" src="{#pageBase#}/scripts/npSignature.js"></script>
+	<script type="text/javascript" src="{#pageBase#}/scripts/npTooltip.js"></script>
+	<script type="text/javascript" src="{#pageBase#}/scripts/admin.js"></script>
 	<!-- Stylesheets -->
-	<link rel="stylesheet" href="/npCMS/style/admin.css" />
-	<link rel="stylesheet" href="/npCMS/style/np.css" />
+	<link rel="stylesheet" href="{#pageBase#}/style/admin.css" />
+	<link rel="stylesheet" href="{#pageBase#}/style/np.css" />
 </head>

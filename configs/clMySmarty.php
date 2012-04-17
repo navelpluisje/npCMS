@@ -1,7 +1,7 @@
 <?php
-global $dir;
+global $_DIR;
 
-include_once( $dir['smarty'] . '/Smarty.class.php');
+include_once( $_DIR['smarty'] . '/Smarty.class.php');
 
 class SmartyTemplate
 {
@@ -9,12 +9,12 @@ class SmartyTemplate
 	var $tpl_name = '';
 	function __construct()
 	{
-		global $dir;
+		global $_DIR;
 		$this->smarty = new Smarty;
-		$this->smarty->template_dir = $dir['templates'];
-		$this->smarty->compile_dir  = $dir['templates_c'];
-		$this->smarty->config_dir   = $dir['configs'];
-		$this->smarty->cache_dir    = $dir['cache'];	
+		$this->smarty->template_dir = $_DIR['templates'];
+		$this->smarty->compile_dir  = $_DIR['templates_c'];
+		$this->smarty->config_dir   = $_DIR['configs'];
+		$this->smarty->cache_dir    = $_DIR['cache'];	
 	}
 
 	function setTemplate($tpl_name)

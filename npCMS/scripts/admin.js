@@ -13,7 +13,7 @@ $(document).ready(function() {
 		$('#imageFile').trigger('click');
 	});
 	$('.buttons a.logout').live('click', function() {
-		var url = '/admin/logout/1'
+		var url = '/admin.php/logout/1'
 		document.location.href = url;
 	});
 });

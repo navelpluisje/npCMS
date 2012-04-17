@@ -7,12 +7,12 @@
 			{section name="i" loop=$blogItems}
 			<div class="item {cycle values='odd,even'}">
 				<div class="buttons">
-					<a href="/admin/blogs/delete/{$blogItems[i].id}" class="remove right" title="Verwijder item"></a>
-					<a href="/admin/blogs/ip/{$blogItems[i].guest_id}" class="ip center" title="Blokkeer IP"></a>
-					<a href="/admin/blogs/guest/{$blogItems[i].guest_id}" class="guest center" title="Blokkeer Gast"></a>
-					<a href="/admin/blogs/edit/{$blogItems[i].id}" class="edit left" title="Wijzig item"></a>
+					<a href="{#pagebase#}/{#adminPage#}/blogs/delete/{$blogItems[i].id}" class="remove right" title="Verwijder item"></a>
+					<a href="{#pagebase#}/{#adminPage#}/blogs/ip/{$blogItems[i].guest_id}" class="ip center" title="Blokkeer IP"></a>
+					<a href="{#pagebase#}/{#adminPage#}/blogs/guest/{$blogItems[i].guest_id}" class="guest center" title="Blokkeer Gast"></a>
+					<a href="{#pagebase#}/{#adminPage#}/blogs/edit/{$blogItems[i].id}" class="edit left" title="Wijzig item"></a>
 				</div>
-				<h3{if $blogItems[i].visible == 0} class="blocked" title="Geblokkeerd"{/if}><a href="/admin/blogs/edit/{$blogItems[i].id}">{$blogItems[i].title|stripslashes}</a></h3>
+				<h3{if $blogItems[i].visible == 0} class="blocked" title="Geblokkeerd"{/if}><a href="{#pagebase#}/{#adminPage#}/blogs/edit/{$blogItems[i].id}">{$blogItems[i].title|stripslashes}</a></h3>
 				{section name="j" loop=$guests}
 				{if $guests[j].id == $blogItems[i].guest_id}
 				<h5>door: {$guests[j].name}</h5>

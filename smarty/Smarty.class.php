@@ -169,7 +169,7 @@ class Smarty extends Smarty_Internal_Data {
     public $php_handling = self::PHP_PASSTHRU;
     public $allow_php_tag = false;
     public $allow_php_templates = false;
-    public $direct_access_security = true;
+    public $_DIRect_access_security = true;
     public $trusted_dir = array();
     // debug mode
     public $debugging = false;

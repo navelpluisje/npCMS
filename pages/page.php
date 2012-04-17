@@ -1,11 +1,11 @@
 <?php
-global $dir;
-include_once( $dir['dbElements'] . '/dbPage.php');
-include_once( $dir['dbElements'] . '/dbPageType.php');
-include_once( $dir['dbElements'] . '/dbNews.php');
-include_once( $dir['dbElements'] . '/dbBlog.php');
-include_once( $dir['dbElements'] . '/dbGuest.php');
-include_once( $dir['configs']    . '/clMySmarty.php');
+global $_DIR;
+include_once( $_DIR['dbElements'] . '/dbPage.php');
+include_once( $_DIR['dbElements'] . '/dbPageType.php');
+include_once( $_DIR['dbElements'] . '/dbNews.php');
+include_once( $_DIR['dbElements'] . '/dbBlog.php');
+include_once( $_DIR['dbElements'] . '/dbGuest.php');
+include_once( $_DIR['configs']    . '/clMySmarty.php');
 
 class Page
 {

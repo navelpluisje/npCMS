@@ -4,8 +4,9 @@
  * @author Erwin Goossen
  * 
  */
+global $_DIR;
 
-include_once('adminValidate.php');
+include_once( $_DIR['admin'] . '/adminValidate.php');
 
 class AdminBlogPage extends AdminPage
 {
@@ -21,6 +22,7 @@ class AdminBlogPage extends AdminPage
 	 * @param string $param Parameter given with the url
 	 */
 	public function __construct($param) {
+		global $_DIR;
 		parent::__construct($param);
 		$function = $this->param[2];
 		$id = $this->param[3];
@@ -39,21 +41,21 @@ class AdminBlogPage extends AdminPage
 				break;
 			case 'change' :
 				$this->editBlogItem($id);
-				header('Location: /admin.php/blogs/');
+				header('Location: ' . $_DIR['webRoot'] . '/' . $_DIR['adminPage'] . '/blogs/');
 				break;
 			case 'ip' :
 				$this->banGuest($id, 'ip');
 				$this->hideBlogByIp($this->dbGuest->ip);
-				header('Location: /admin.php/blogs/');
+				header('Location: ' . $_DIR['webRoot'] . '/' . $_DIR['adminPage'] . '/blogs/');
 				break;
 			case 'guest' :
 				$this->banGuest($id, 'guest');
 				$this->hideBlog($id);
-				header('Location: /admin.php/blogs/');
+				header('Location: ' . $_DIR['webRoot'] . '/' . $_DIR['adminPage'] . '/blogs/');
 				break;
 			case 'delete' :
 				$this->deleteBlogItem($id);
-				header('Location: /admin/blogs/');
+				header('Location: ' . $_DIR['webRoot'] . '/' . $_DIR['adminPage'] . '/blogs/');
 				break;
 			default :
 				$this->getGuests();
@@ -81,7 +83,6 @@ class AdminBlogPage extends AdminPage
 	}
 
 	public function getGuest($id) {
-		echo $id;
 		$this->dbGuest = new DbGuest();
 		$this->guest = $this->dbGuest->get($id);
 		$this->tpl->assign('guest', $this->guest);
@@ -96,10 +97,14 @@ class AdminBlogPage extends AdminPage
 			echo 'test ' . $id;
 		}
 		$title      = $this->postFields['title'];
-		$btext      = $_POST['text'];
+		$btext      = trim($_POST['text']);
 		$guest_id   = $_POST['guest_id'];
 		$guest_name = $this->dbBlog->guest_name;
-		$visible    = $this->dbBlog->visible;
+		if ($_POST['hidden'] == 'hidden') {
+			$visible    = 0;
+		} else {
+			$visible    = 1;
+		}
 		$cat_id     = $this->dbBlog->category_id;
 		$cat_name   = $this->dbBlog->category_name;
 		$this->dbBlog->init($id, $title, $btext, '', $guest_id, $cat_id, $guest_name, $cat_name, $visible, date ("Y-m-d H:m:s"), date ("Y-m-d H:m:s"));

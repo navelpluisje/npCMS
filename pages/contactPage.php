@@ -1,8 +1,8 @@
 <?php
-global $dir;
+global $_DIR;
 
-include_once( $dir['admin'] . '/adminValidate.php');
-include_once( $dir['classes'] . '/mail.php');
+include_once( $_DIR['admin'] . '/adminValidate.php');
+include_once( $_DIR['classes'] . '/mail.php');
 
 class ContactPage extends Page
 {
