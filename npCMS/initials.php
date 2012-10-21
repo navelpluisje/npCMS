@@ -23,7 +23,7 @@ $_DIR['adminPage'] = $config['adminPage'];
 /**
  * Global database login
  */
-require_once('DB.php');
+require_once('pear/DB.php');
 $db = DB::connect('mysql://'.$config['.DBCONN']['pass'].':'.$config['.DBCONN']['user'].'@'.$config['.DBCONN']['host'].':'.$config['.DBCONN']['port'].'/'.$config['.DBCONN']['database']);
 $db->setFetchMode(DB_FETCHMODE_ASSOC);
 
