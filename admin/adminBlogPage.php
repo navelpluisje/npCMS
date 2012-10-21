@@ -2,7 +2,7 @@
 /**
  * Class for creating, updating and deleting Blogpages
  * @author Erwin Goossen
- * 
+ * Just a test fo Git within Sublime
  */
 global $_DIR;
 
