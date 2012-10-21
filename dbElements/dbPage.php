@@ -28,19 +28,17 @@ class DbPage
 	
     function get($id) {
         global $db;
-		$result = $db->query('SELECT * FROM pages WHERE id=' . $db->quote($id));
-		if ( ! DB::isError($result) && $result->numRows() != 0){
-	        $array = $result->fetchRow();
+		$result = $db->exec('SELECT * FROM pages WHERE id=' . $id);
+		if ($result->rowCount() != 0){
+	        $array = $result->fetchAll();
+	        $array = $array[0];
 	        foreach ($array as $key => $value) {
 	            $this->$key = $value;
 	        }
 			return $array;
 		}
 		else {
-			if(DB::isError($result)) {
-				throw new Exception('Fout bij zoeken van pagina met id: ' . $id, 99002);
-			}
-			else if($result->numRows() == 0) {
+			if($result->numRows() == 0) {
 				throw new Exception('Geen resultaten bij zoeken van pagina met id: ' . $id, 99001);
 			}
 		}
@@ -100,13 +98,13 @@ class DbPage
 	
     function getParents($id) {
         global $db;
-        $result = $db->getAll('SELECT * FROM pages WHERE parent_id=' . $db->quote($id) , DB_FETCHMODE_ASSOC);
-		if ( ! DB::isError($result)){
-			return $result;
-		}
-		else {
-			throw new Exception('Fout bij zoeken van pagina met naam: ' . $name, 99002);
-		}
+        $result = $db->exec('SELECT * FROM pages WHERE parent_id=' . $id);
+        $result = $result->fetchAll();
+			return $result[0];
+		// }
+		// else {
+		// 	throw new Exception('Fout bij zoeken van pagina met naam: ' . $name, 99002);
+		// }
     }
 	
 	function fetch() {

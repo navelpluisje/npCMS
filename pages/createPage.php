@@ -31,7 +31,7 @@ class CreatePage
 	 */
 	public function initPage() {
 		$this->setPageType();
-		$page = null;		
+		$page = null;	
 		switch ($this->pageType) {
 			case 'menu' :
 				$page = new Page($this->param);

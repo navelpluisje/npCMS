@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
-include_once( 'initials.php');
+include_once( '../classes/initials.php');
 include_once( $_DIR['pages'].'/createPage.php');
 
 if (isset($_GET['a'])) {
@@ -10,7 +10,7 @@ if (isset($_GET['a'])) {
 	array_unshift($param, '');
 }
 else {
-	$param = split('/',$_SERVER['PATH_INFO']);
+	$param = preg_split('/\//',$_SERVER['PATH_INFO']);
 }
 unset($param[0]);
 if (empty($param) || $param[1] == null) {

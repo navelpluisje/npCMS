@@ -86,6 +86,7 @@ class Page
 	
 	public function showPage() {
 		$this->tpl->displayTemplate();
+		echo 'test';
 	}
 }
 ?>
