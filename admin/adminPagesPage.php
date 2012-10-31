@@ -18,15 +18,19 @@ class AdminPagesPage extends AdminPage
 
 	public function __construct($param) {
 		parent::__construct($param);
-		$function = $this->param[2];
-		$id = $this->param[3];
+		$function = ( isset( $this->param[2] ) ? $this->param[2] : '');
+		$id       = ( isset( $this->param[3] ) ? $this->param[3] : '');
+
 		$this->valid = new Validation();
 		$this->tpl->assign('pBreak', $this->pBreak);
+
 		switch ($function) {
 			case 'new' :
 				$this->getUsers();
 				$this->getPageTypes();
 				$this->getPageParents();
+				$this->tpl->assign('new', true);
+				$this->tpl->assign('edit', false);
 				$this->tpl->assign('newItem', true);
 				$this->setIncludeTemplate('admin/admin_newPageItem.tpl');
 				break;
@@ -47,6 +51,7 @@ class AdminPagesPage extends AdminPage
 				break;
 			case 'edit' :
 				$this->tpl->assign('edit', true);
+				$this->tpl->assign('new', false);
 				$this->getUsers();
 				$this->getPageTypes();
 				$this->getPageItem($id);

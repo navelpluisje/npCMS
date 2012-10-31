@@ -30,16 +30,16 @@ class DbBlog
 	
     function get($id) {
         global $db;
-		$result = $db->query('SELECT * FROM blogs WHERE id=' . $db->quote($id));
-		if ( ! DB::isError($result) || $result->numRows() != 0){
-	        $array = $result->fetchRow();
+		$result = $db->exec('SELECT * FROM blogs WHERE id=' . $db->quote($id));
+		if ( $result->rowCount() != 0){
+	        $array = $result->fetch();
 	        foreach ($array as $key => $value) {
 	            $this->$key = $value;
 	        }
 			return $array;
 		}
 		else {
-			if(DB::isError($result)) {
+			if( $result == -1 ) {
 				echo $result;
 				throw new Exception('Fout bij zoeken van blog met id: ' . $id, 99002);
 			}
@@ -51,22 +51,28 @@ class DbBlog
 
     function getAll() {
         global $db;
-        $result = $db->getAll('SELECT * FROM blogs', DB_FETCHMODE_ASSOC);
-		if ( ! DB::isError($result) && ! empty($result)){
+        $result = $db->exec( 'SELECT * FROM blogs' );
+		if ( $result->rowCount() != 0 ){
+			$result = $result->fetchAll();
 			return $result;
 		}
 		else {
-			throw new Exception('Geen resultaten bij ophalen alle blog', 99001);
+			if( $result == -1 ) {
+				throw new Exception('Fout bij zoeken van blog met id: ' . $id, 99002);
+			}
+			else if($result->numRows() == 0) {
+				throw new Exception('Geen resultaten bij zoeken van blog met id: ' . $id, 99001);
+			}
 		}
     }
 	
     function getVisible() {
         global $db;
-        $result = $db->getAll('SELECT title, body_text, date_created, guest_id, guest_name 
+        $result = $db->exec('SELECT title, body_text, date_created, guest_id, guest_name 
         					   FROM blogs where visible = 1
-        					   ORDER BY date_created DESC', DB_FETCHMODE_ASSOC);
-		if ( ! DB::isError($result) && ! empty($result)){
-			return $result;
+        					   ORDER BY date_created DESC');
+		if ( $result->rowCount() != 0){
+			return $result->fetchAll();
 		}
 		else {
 			throw new Exception('Geen resultaten bij ophalen alle blog', 99001);
@@ -86,8 +92,8 @@ class DbBlog
 
     function delete($id) {
         global $db;
-        $result = $db->query('DELETE FROM blogs WHERE id=' . $db->quote($id));
-		if ( ! DB::isError($result)){
+        $result = $db->delete('DELETE FROM blogs WHERE id=' . $db->quote($id));
+		if ( $result != -1) {
 			return $result;
 		}
 		else {
@@ -98,8 +104,8 @@ class DbBlog
     function update($id) {
         global $db;
 		$values = $this->createValueList();
-        $result = $db->autoExecute('blogs', $values, DB_AUTOQUERY_UPDATE, 'id =' . $db->quote($id));
-		if ( ! DB::isError($result)){
+        $result = $db->update('blogs', $values, 'id =' . $db->quote($id));
+		if ( $result != -1 ){
 			return $result;	
 		}
 		else {
@@ -112,8 +118,8 @@ class DbBlog
 		$values = array(
 		   	'visible' => 0,
 		);
-        $result = $db->autoExecute('blogs', $values, DB_AUTOQUERY_UPDATE, 'guest_id =' . $db->quote($id));
-		if ( ! DB::isError($result)){
+        $result = $db->update('blogs', $values, 'guest_id =' . $db->quote($id));
+		if ( $result != -1 ){
 			return $result;	
 		}
 		else {
@@ -124,8 +130,8 @@ class DbBlog
     function insert() {
         global $db;
 		$values = $this->createValueList();
-        $result = $db->autoExecute('blogs', $values, DB_AUTOQUERY_INSERT);
-		if ( ! DB::isError($result)){
+        $result = $db->insert('blogs', $values);
+		if ( $result != -1 ){
 			return $result;
 		}
 		else {

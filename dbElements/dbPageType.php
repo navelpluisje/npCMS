@@ -18,8 +18,8 @@ class DbPageType
 	
     function get($id) {
         global $db;
-		$result = $db->query('SELECT * FROM page_types WHERE id=' . $db->quote($id));
-		if ( ! DB::isError($result) && $result->numRows() != 0){
+		$result = $db->exec('SELECT * FROM page_types WHERE id=' . $id);
+		if ( $result->rowCount() != 0){
 	        $array = $result->fetchRow();
 	        foreach ($array as $key => $value) {
 	            $this->$key = $value;
@@ -41,8 +41,7 @@ class DbPageType
         global $db;
 		$result = $db->exec('SELECT * FROM pages p, page_types pt WHERE p.type_id=pt.id AND p.id=' . $id);
 		if ($result->rowCount() != 0){
-	        $array = $result->fetchAll();
-	        $array= $array[0];
+	        $array = $result->fetch();
 	        foreach ($array as $key => $value) {
 	            $this->$key = $value;
 	        }
@@ -51,18 +50,28 @@ class DbPageType
 		else {
 			if($result->rowCount() == 0) {
 				throw new Exception('Geen resultaten bij zoeken van paginasoorten met id: ' . $id, 99001);
+			} 
+			else if ($result === -1) {
+				throw new Exception('Fout bij opvragen gegevens paginasoorten met id: ' . $id, 99002);
 			}
 		}
     }
 
     function getAll() {
         global $db;
-        $result = $db->getAll('SELECT * FROM page_types', DB_FETCHMODE_ASSOC);
-		if ( ! DB::isError($result)){
+        $result = $db->exec( 'SELECT * 
+        					  FROM page_types');
+		if ( $result->rowCount() != 0 ){
+
 			return $result;
 		}
 		else {
-			throw new Exception('Fout bij ophalen van alle paginasoorten', 99002);
+			if ( $result->rowCount() == 0) {
+				throw new Exception('Geen resultaten bij het opghalen van paginasoorten', 99001);
+			} 
+			else if ($result == -1) {
+				throw new Exception('Fout bij ophalen van alle paginasoorten', 99002);
+			}
 		}
     }
 	

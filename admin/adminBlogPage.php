@@ -21,16 +21,20 @@ class AdminBlogPage extends AdminPage
 	 * Constructor Checking which page to show and manage the templates
 	 * @param string $param Parameter given with the url
 	 */
-	public function __construct($param) {
+	public function __construct( $param ) {
 		global $_DIR;
-		parent::__construct($param);
-		$function = $this->param[2];
-		$id = $this->param[3];
-		$this->postFields = array(
-			'guest_id' => $_POST['guest_id'],
-			'title'    => $_POST['title'],
-			'content'  => $_POST['text']);
-		switch ($function) {
+		parent::__construct( $param );
+		$function = ( isset( $this->param[2] ) ? $this->param[2] : '');
+		$id       = ( isset( $this->param[3] ) ? $this->param[3] : '');
+
+		if ( isset( $_POST['guest_id'] ) || isset( $_POST['title'] ) || isset( $_POST['text'] )) {
+			$this->postFields = array(
+				'guest_id' => $_POST['guest_id'],
+				'title'    => $_POST['title'],
+				'content'  => $_POST['text']);
+		}
+
+		switch ( $function ) {
 			case 'edit' :
 				$this->tpl->assign('edit', true);
 				$this->getBlogItem($id);
@@ -70,6 +74,7 @@ class AdminBlogPage extends AdminPage
 		try {
 			$this->blogItems = $this->dbBlog->getAll();
 			$this->tpl->assign('blogItems', $this->blogItems);
+			$this->tpl->assign('empty', false);
 		}
 		catch (Exception $e) {
 			$this->tpl->assign('empty', true);
@@ -100,7 +105,7 @@ class AdminBlogPage extends AdminPage
 		$btext      = trim($_POST['text']);
 		$guest_id   = $_POST['guest_id'];
 		$guest_name = $this->dbBlog->guest_name;
-		if ($_POST['hidden'] == 'hidden') {
+		if ( isset( $_POST['hidden'] ) && $_POST['hidden'] == 'hidden') {
 			$visible    = 0;
 		} else {
 			$visible    = 1;

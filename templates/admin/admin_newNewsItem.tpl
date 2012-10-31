@@ -18,12 +18,13 @@
 		<span class="inputRow">
 			<label for="user_id">Gebruiker</label>
 			<select type="text" name="user_id">
-				{section name="i" loop=$users}
-				<option value="{$users[i].id}" 	{if $users[i].id == $newsItem.user_id}
+				{section name=i loop=$users}
+				<option value="{$users[i].id}" 	{if $edit && $users[i].id == $newsItem.user_id}
 													selected="selected"
 												{else if strtoupper($users[i].screen_name) == strtoupper($sessionUser) && $newItem}
 													selected="selected"
-												{/if}>{$users[i].screen_name}
+												{/if}>
+					{$users[i].screen_name}
 				</option>
 				{/section}
 			</select>
@@ -31,8 +32,8 @@
 		<span class="inputRow">
 			<label for="category_id">Category</label>
 			<select type="text" name="category_id">
-				{section name="i" loop=$cats}
-				<option value="{$cats[i].id}" {if $cats[i].id == $newsItem.category_id}selected="selected"{/if}>{$cats[i].name}</option>
+				{section name=i loop=$cats}
+				<option value="{$cats[i].id}" {if $edit && $cats[i].id == $newsItem.category_id}selected="selected"{/if}>{$cats[i].name}</option>
 				{/section}
 			</select>
 		</span>

@@ -17,7 +17,7 @@ class SmartyTemplate
 		$this->smarty->cache_dir    = $_DIR['cache'];	
 	}
 
-	function setTemplate($tpl_name)
+	function setTemplate($tpl_name = '')
 	{
 		$this->tpl_name = $tpl_name;
 	}

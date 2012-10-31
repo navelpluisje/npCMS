@@ -12,7 +12,7 @@
 				</span>
 			</div>
 			<ul id="menu">
-				{section name="i" loop=$links}
+				{section name=i loop=$links}
 				<li id="menu_{$links[i].id}" title="{$links[i].short_description}" class="{$links[i].name|lower|replace:' ':''} menuItem"><a href="{#pageBase#}/{#indexPage#}/{$links[i].id}">{$links[i].name}</a></li>
 				{/section}
 			</ul>

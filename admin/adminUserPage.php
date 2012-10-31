@@ -1,7 +1,7 @@
 <?php
 global $_DIR;
 
-include_once( $_DIR['admin'] . '/adminValidate.php');
+include_once( $_DIR['admin'] . '/adminValidate.php' );
 
 class AdminUserPage extends AdminPage
 {
@@ -13,54 +13,59 @@ class AdminUserPage extends AdminPage
 	protected $valid;
 	var $Upload;
 	
-	public function __construct($param) {
+	public function __construct( $param ) {
 		global $_DIR;
-		parent::__construct($param);
+		parent::__construct( $param );
 		$this->valid = new Validation();
-		$function = $this->param[2];
-		$id       = $this->param[3];
+		$function    = ( isset( $this->param[2] ) ? $this->param[2] : '') ;
+		$id          = ( isset( $this->param[3] ) ? $this->param[3] : '') ;
+
 		switch ($function) {
 			case 'new' :
-				$this->setIncludeTemplate('admin/admin_newUser.tpl');
+					$this->tpl->assign( 'edit', false );
+					$this->tpl->assign( 'new', true );
+				$this->setIncludeTemplate( 'admin/admin_newUser.tpl' );
 				break;
 			case 'add' :
-				if ( ! $this->validateFields()) {
-					$this->tpl->assign('edit', true);
-					$this->tpl->assign('new', true);
-					$this->tpl->assign('user', $this->tempUser);
-					$this->setIncludeTemplate('admin/admin_newUser.tpl');
+				if ( ! $this->validateFields() ) {
+					$this->tpl->assign( 'edit', true );
+					$this->tpl->assign( 'new', true );
+					$this->tpl->assign( 'user', $this->tempUser );
+					$this->setIncludeTemplate( 'admin/admin_newUser.tpl' );
 				}
 				else {
 					$this->addUser();
-					header('Location: ' . $_DIR['webRoot'] . '/' . $_DIR['adminPage'] . '/users/');
+					header( 'Location: ' . $_DIR['webRoot'] . '/' . $_DIR['adminPage'] . '/users/' );
 				}
 				break;
 			case 'edit' :
-				$this->tpl->assign('edit', true);
-				$this->setIncludeTemplate('admin/admin_newUser.tpl');
-				$this->getUser($id);				
+				$this->tpl->assign( 'edit', true );
+				$this->tpl->assign( 'new', false );
+				$this->setIncludeTemplate( 'admin/admin_newUser.tpl' );
+				$this->getUser( $id );				
 				break;
 			case 'change' :
 				if ( ! $this->validateFields()) {
-					$this->tpl->assign('edit', true);
-					$this->tpl->assign('user', $this->tempUser);
-					$this->setIncludeTemplate('admin/admin_newUser.tpl');
+					$this->tpl->assign( 'edit', true );
+					$this->tpl->assign( 'new', false );
+					$this->tpl->assign( 'user', $this->tempUser );
+					$this->setIncludeTemplate( 'admin/admin_newUser.tpl' );
 				}
 				else {
-					$this->editUser($id);
-					header('Location: ' . $_DIR['webRoot'] . '/' . $_DIR['adminPage'] . '/users/');
+					$this->editUser( $id );
+					header( 'Location: ' . $_DIR['webRoot'] . '/' . $_DIR['adminPage'] . '/users/' );
 				}
 				break;
 			case 'delete' :
-				$this->deleteUser($id);
-				header('Location: ' . $_DIR['webRoot'] . '/' . $_DIR['adminPage'] . '/users/');
+				$this->deleteUser( $id );
+				header( 'Location: ' . $_DIR['webRoot'] . '/' . $_DIR['adminPage'] . '/users/' );
 				break;
 			default :
-				$this->setIncludeTemplate('admin/admin_userPage.tpl');
+				$this->setIncludeTemplate( 'admin/admin_userPage.tpl' );
 				$this->getUsers();
 				break;	
 		}
-		$this->tpl->assign('error', $this->errorMessage);
+		$this->tpl->assign( 'error', $this->errorMessage );
 	}
 	
 	public function getUsers() {

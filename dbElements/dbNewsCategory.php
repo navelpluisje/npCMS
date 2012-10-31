@@ -35,12 +35,12 @@ class DbNewsCategory
 
     function getAll() {
         global $db;
-        $result = $db->getAll('SELECT * FROM news_categories', DB_FETCHMODE_ASSOC);
-		if ( ! DB::isError($result)){
+        $result = $db->exec('SELECT * FROM news_categories');
+        $result = $result->fetchAll();
+        if(count($result) > 0) {
 			return $result;
-		}
-		else {
-			if($result->numRows() == 0) {
+        } else {
+			if($result->rowCount() == 0) {
 				throw new Exception('Geen resultaten bij ophalen alle categorieen', 99001);
 			}
 			else {

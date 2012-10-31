@@ -12,8 +12,8 @@ include_once( $_DIR['dbElements'] . '/dbPage.php');
 include_once( $_DIR['dbElements'] . '/dbPageType.php');
 include_once( $_DIR['dbElements'] . '/dbGuest.php');
 include_once( $_DIR['dbElements'] . '/dbNewsCategory.php');
-include_once( $_DIR['admin'] . '/adminPictures.php');
-include_once( $_DIR['config'] . '/clMySmarty.php');
+include_once( $_DIR['admin']      . '/adminPictures.php');
+include_once( $_DIR['configs']     . '/clMySmarty.php');
 
 
 class AdminPage

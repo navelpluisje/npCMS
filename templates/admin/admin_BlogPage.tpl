@@ -1,11 +1,11 @@
 <div id="content" class="news">
 	<h1>Blogs</h1>
 	<div class="items">
-		{if $empty==true}
+		{if $empty}
 			<h3>Geen resultaten!!</h3>
 		{else}
-			{section name="i" loop=$blogItems}
-			<div class="item {cycle values='odd,even'}">
+			{section name=i loop=$blogItems}
+			<div class="item {cycle values='odd, even'}">
 				<div class="buttons">
 					<a href="{#pagebase#}/{#adminPage#}/blogs/delete/{$blogItems[i].id}" class="remove right" title="Verwijder item"></a>
 					<a href="{#pagebase#}/{#adminPage#}/blogs/ip/{$blogItems[i].guest_id}" class="ip center" title="Blokkeer IP"></a>

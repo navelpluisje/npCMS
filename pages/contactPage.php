@@ -12,6 +12,8 @@ class ContactPage extends Page
 	public function __construct($param) {
 		parent::__construct($param);
 		$this->setIncludeTemplate('contactPage.tpl');
+		$this->getSmartyTpl()->assign('send', false);
+		$this->getSmartyTpl()->assign('errorMessage', '');
 		$this->validate = new Validation();
 		
 		if (isset($_POST['submit'])) {

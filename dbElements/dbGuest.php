@@ -22,22 +22,21 @@ class DbGuest
 	
     function get($id) {
         global $db;
-		$result = $db->query('SELECT * 
+		$result = $db->exec('SELECT * 
 							  FROM guests 
 							  WHERE id=' . $db->quote($id));
-		if ( ! DB::isError($result) && $result->numRows() != 0){
-	        $array = $result->fetchRow();
+		if ( $result->rowCount() != 0){
+	        $array = $result->fetch();
 	        foreach ($array as $key => $value) {
 	            $this->$key = $value;
 	        }
 			return $array;
 		}
 		else {
-			if(DB::isError($result)) {
-				echo $result;
+			if( $result == -1 ) {
 				throw new Exception('Fout bij zoeken van guest met id: ' . $id, 99002);
 			}
-			else if($result->numRows() == 0) {
+			else if($result->rowCount() == 0) {
 				throw new Exception('Geen resultaten bij zoeken van guest met id: ' . $id, 99001);
 			}
 		}
@@ -45,39 +44,38 @@ class DbGuest
 
     function getByIP($name, $ip) {
         global $db;
-		$result = $db->query("SELECT * 
+		$result = $db->exec( "SELECT * 
 							  FROM guests 
-							  WHERE ip=" . $db->quote($ip) . "
+							  WHERE ip='" . $ip . "'
 							  	AND name='" . $name . "'");
-		if ( ! DB::isError($result) && $result->numRows() != 0){
-	        $array = $result->fetchRow();
+		if ( $result->rowCount() != 0){
+	        $array = $result->fetch();
 	        foreach ($array as $key => $value) {
 	            $this->$key = $value;
 	        }
 			return $array;
 		}
 		else {
-			if(DB::isError($result)) {
-				echo $result;
-				throw new Exception('Fout bij zoeken van guest met id: ' . $id, 99002);
+			if($result === -1) {
+				throw new Exception('Fout bij zoeken van guest met id: ' . $ip, 99002);
 			}
-			else if($result->numRows() == 0) {
-				throw new Exception('Geen resultaten bij zoeken van guest met id: ' . $id, 99001);
+			else if($result->rowCount() == 0) {
+				throw new Exception('Geen resultaten bij zoeken van guest met id: ' . $ip, 99001);
 			}
 		}
     }
 
     function getAllByIP($ip) {
         global $db;
-		$result = $db->getAll("SELECT id 
+		$result = $db->exec( "SELECT id 
 							  FROM guests 
-							  WHERE ip='" . $ip . "'" , DB_FETCHMODE_ASSOC);
-		if ( ! DB::isError($result) || $result->numRows() != 0){
+							  WHERE ip='" . $ip . "'" );
+		if ( $result->rowCount() != 0 ){
+			$result = $result->fetchAll();
 			return $result;
 		}
 		else {
-			if(DB::isError($result)) {
-				echo $result;
+			if( $result == -1 ) {
 				throw new Exception('Fout bij zoeken van guest met id: ' . $id, 99002);
 			}
 			else if($result->numRows() == 0) {
@@ -88,13 +86,14 @@ class DbGuest
 
     function getAll() {
         global $db;
-        $result = $db->getAll('SELECT * 
-        					   FROM guests', DB_FETCHMODE_ASSOC);
-		if ( ! DB::isError($result)){
+        $result = $db->exec( 'SELECT * 
+        	                  FROM guests' );
+		if ( $result->rowCount() != 0 ){
+			$result = $result->fetchAll();
 			return $result;
 		}
 		else {
-			if($result->numRows() == 0) {
+			if($result->rowCount() == 0) {
 				throw new Exception('Geen resultaten bij ophalen alle guests', 99001);
 			}
 			else {
@@ -116,8 +115,9 @@ class DbGuest
 
     function delete($id) {
         global $db;
-        $result = $db->query('DELETE FROM guests 
-        					  WHERE id=' . $db->quote($id));
+        $result = $db->query( 'DELETE 
+        	                   FROM guests 
+        					   WHERE id=' . $db->quote($id));
 		if ( ! DB::isError($result)){
 			return $result;
 		}
@@ -141,11 +141,12 @@ class DbGuest
     function banGuest($id) {
         global $db;
 		$values = array(
-		   	'banned' => 1,
+			'id'		  => $db->quote($id),
+		   	'banned'      => 1,
 		   	'date_banned' => date ("Y-m-d H:m:s")
 		);
-        $result = $db->autoExecute('guests', $values, DB_AUTOQUERY_UPDATE, 'id = ' . $db->quote($id));
-		if ( ! DB::isError($result)){
+        $result = $db->update('guests', $values, 'id = ' . $db->quote($id));
+		if ( $result != -1){
 			return $result;
 		}
 		else {
@@ -156,22 +157,24 @@ class DbGuest
     function banIp($ip) {
         global $db;
 		$values = array(
-		   	'banned' => 1
+			'id'		  => 0,
+		   	'banned'      => 1,
+		   	'date_banned' => date ("Y-m-d H:m:s")
 		);
-        $result = $db->autoExecute('guests', $values, DB_AUTOQUERY_UPDATE, 'ip = ' . $db->quote($ip));
-		if ( ! DB::isError($result)){
+        $result = $db->update('guests', $values, 'ip = ' . $db->quote($ip));
+		if ( $result != -1){
 			return $result;
 		}
 		else {
-			throw new Exception('Fout bij het updaten van guest met id: ' . $id);
+			throw new Exception('Fout bij het updaten van guest met ip: ' . $ip);
 		}
     }
 	
     function insert() {
         global $db;
 		$values = $this->createValueList();
-        $result = $db->autoExecute('guests', $values, DB_AUTOQUERY_INSERT);
-		if ( ! DB::isError($result)){
+        $result = $db->insert('guests', $values);
+		if ( $result != -1){
 			return $result;
 		}
 		else {

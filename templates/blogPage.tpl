@@ -14,7 +14,7 @@
 				</p>
 			</div>
 		{else}
-			{section name="i" loop=$blogItems}
+			{section name=i loop=$blogItems}
 			<div class="listItem">
 				<h3>{$blogItems[i].title|stripslashes}<span class="date">{date('d M Y',strtotime($blogItems[i].date_created))}</span></h3>
 				<p>

@@ -7,8 +7,8 @@ class NewsPage extends Page
 	
 	public function __construct($param) {
 		parent::__construct($param);
-		$id = $param[2];
-		if ($id > 0) {
+		if (count($param) > 1) {
+			$id = $param[2];
 			$this->setIncludeTemplate('newsItemPage.tpl');
 			$this->getNewsItem($id);
 		}
@@ -20,8 +20,14 @@ class NewsPage extends Page
 	
 	public function getNewsItems() {
 		$this->dbNews = new DbNews();
-		$this->newsItems = $this->dbNews->getAll();
-		$this->getSmartyTpl()->assign('newsItems', $this->newsItems); 
+		try {
+			$this->newsItems = $this->dbNews->getAll();
+			$this->getSmartyTpl()->assign('newsItems', $this->newsItems); 
+			$this->getSmartyTpl()->assign('empty', false);
+		} catch( Exception $e) {
+			$this->getSmartyTpl()->assign('empty', true);
+		}
+
 	}
 
 	public function getNewsItem($id) {

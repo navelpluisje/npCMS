@@ -27,6 +27,7 @@ class Page
 		$this->tpl = new SmartyTemplate();
 		$this->tpl->setTemplate('menuPage.tpl');
 		$this->tpl->assign('pageId', $id);
+		$this->tpl->assign('template', '');
 		$this->getMenuItems();
 		$this->setParentPage();
 	}

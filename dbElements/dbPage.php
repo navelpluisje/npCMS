@@ -66,12 +66,14 @@ class DbPage
 
     function getAll() {
         global $db;
-        $result = $db->getAll('SELECT * FROM pages', DB_FETCHMODE_ASSOC);
-		if ( ! DB::isError($result) || $result->numRows() != 0){
+        $result = $db->exec( 'SELECT * 
+        					  FROM pages' );
+		if ( $result->rowCount() != 0){
+			$result = $result->fetchAll();
 			return $result;
 		}
 		else {
-			if($result->numRows() == 0) {
+			if($result->rowCount() == 0) {
 				throw new Exception('Geen resultaten bij ophalen alle paginas', 99001);
 			}
 			else {
@@ -82,12 +84,15 @@ class DbPage
 	
     function getAllParents() {
         global $db;
-        $result = $db->getAll('SELECT id, name FROM pages ORDER BY name', DB_FETCHMODE_ASSOC);
-		if ( ! DB::isError($result) || $result->numRows() != 0){
+        $result = $db->exec( 'SELECT id, name 
+        					  FROM pages 
+        					  ORDER BY name');
+		if ( $result->rowCount() != 0){
+			$result = $result->fetchAll();
 			return $result;
 		}
 		else {
-			if($result->numRows() == 0) {
+			if($result->rowCount() == 0) {
 				throw new Exception('Geen resultaten bij ophalen alle paginas', 99001);
 			}
 			else {
@@ -100,7 +105,7 @@ class DbPage
         global $db;
         $result = $db->exec('SELECT * FROM pages WHERE parent_id=' . $id);
         $result = $result->fetchAll();
-			return $result[0];
+			return $result;
 		// }
 		// else {
 		// 	throw new Exception('Fout bij zoeken van pagina met naam: ' . $name, 99002);

@@ -28,20 +28,16 @@ class DbNews
 	
     function get($id) {
         global $db;
-		$result = $db->query('SELECT * FROM news WHERE id=' . $db->quote($id));
-		if ( ! DB::isError($result) && $result->numRows() != 0){
-	        $array = $result->fetchRow();
+		$result = $db->exec('SELECT * FROM news WHERE id=' . $id);
+		if ( $result->rowCount() != 0){
+	        $array = $result->fetch();
 	        foreach ($array as $key => $value) {
 	            $this->$key = $value;
 	        }
 			return $array;
 		}
 		else {
-			if(DB::isError($result)) {
-				echo $result;
-				throw new Exception('Fout bij zoeken van nieuws met id: ' . $id, 99002);
-			}
-			else if($result->numRows() == 0) {
+			if($result->rowCount() == 0) {
 				throw new Exception('Geen resultaten bij zoeken van nieuws met id: ' . $id, 99001);
 			}
 		}
@@ -49,17 +45,12 @@ class DbNews
 
     function getAll() {
         global $db;
-        $result = $db->getAll('SELECT * FROM news', DB_FETCHMODE_ASSOC);
-		if ( ! DB::isError($result)){
+        $result = $db->exec('SELECT * FROM news');
+        $result = $result->fetchAll();
+        if(count($result) > 0) {
 			return $result;
-		}
-		else {
-			if($result->numRows() == 0) {
-				throw new Exception('Geen resultaten bij ophalen alle nieuws', 99001);
-			}
-			else {
-				throw new Exception('Fout bij ophalen van alle nieuws', 99002);
-			}
+        } else {
+			throw new Exception('Geen resultaten bij ophalen alle nieuws', 99001);
 		}
     }
 	
@@ -68,7 +59,7 @@ class DbNews
         if (empty($array)) {
             return false;
         }
-        foreach ($array as $key=>$value) {
+        foreach ( $array as $key=>$value ) {
             $this->$key = $value;
         }
         return true;
@@ -76,21 +67,20 @@ class DbNews
 
     function delete($id) {
         global $db;
-        $result = $db->query('DELETE FROM news WHERE id=' . $db->quote($id));
-		if ( ! DB::isError($result)){
+        $result = $db->delete( 'DELETE FROM news WHERE id=' . $db->quote( $id ));
+		if ( $result != -1 ){
 			return $result;
 		}
 		else {
-			throw new Exception('Fout bij het verwijderen van nieuws met id: ' . $id);
+			throw new Exception( 'Fout bij het verwijderen van nieuws met id: ' . $id );
 		}
     }
 
-    function update($id) {
+    function update( $id ) {
         global $db;
 		$values = $this->createValueList();
-		$values->
-        $result = $db->autoExecute('news', $values, DB_AUTOQUERY_UPDATE, 'id =' . $db->quote($id));
-		if ( ! DB::isError($result)){
+        $result = $db->update( 'news', $values, 'id =' . $db->quote( $id ));
+		if ( $result != -1 ){
 			return $result;	
 		}
 		else {
@@ -102,8 +92,8 @@ class DbNews
         global $db;
 		$values = $this->createValueList();
 		$values['date_created'] = date ("Y-m-d H:m:s");
-        $result = $db->autoExecute('news', $values, DB_AUTOQUERY_INSERT);
-		if ( ! DB::isError($result)){
+        $result = $db->insert('news', $values);
+		if ( $result != -1 ) {
 			return $result;
 		}
 		else {
@@ -112,7 +102,11 @@ class DbNews
     }
 	
 	function createValueList() {
+		if (! $this->date_created) {
+			$this->date_created = date ("Y-m-d H:m:s");
+		}
 		$values = array(
+			'id'			=> $this->id,
 		   	'title'         => $this->title,
 		   	'body_text'     => $this->body_text,
 		   	'more_text'     => $this->more_text,

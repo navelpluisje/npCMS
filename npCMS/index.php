@@ -10,7 +10,7 @@ if (isset($_GET['a'])) {
 	array_unshift($param, '');
 }
 else {
-	$param = preg_split('/\//',$_SERVER['PATH_INFO']);
+	$param = preg_split('/\//', $_SERVER['PATH_INFO']);
 }
 unset($param[0]);
 if (empty($param) || $param[1] == null) {
@@ -20,3 +20,4 @@ if (empty($param) || $param[1] == null) {
 $newPage = new CreatePage($param);
 
 ?>
+

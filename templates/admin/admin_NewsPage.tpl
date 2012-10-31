@@ -2,6 +2,7 @@
 	<h1>Nieuws</h1>
 	<div class="buttons top"><a href="{#pageBase#}/{#adminPage#}/news/new" class="add" title="Voeg item toe"></a></div>
 	<div class="items">
+	{if ! $empty}
 		{section name="i" loop=$newsItems}
 		<div class="item {cycle values='odd,even'}">
 			<div class="buttons">
@@ -17,6 +18,7 @@
 			<p>{$newsItems[i].body_text|stripslashes}</p>
 		</div>
 		{/section}
+	{/if}
 	</div>
 	<div class="buttons bottom"><a href="{#pageBase#}/{#adminPage#}/news/new" class="add" title="Voeg item toe"></a></div>
 </div>

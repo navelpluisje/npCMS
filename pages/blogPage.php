@@ -15,9 +15,15 @@ class BlogPage extends Page
 	
 	public function __construct($param) {
 		parent::__construct($param);
-		$id = $param[2];
+		if ( count($param) > 1) {
+			$id = $param[2];
+		} else {
+			$id = '';
+		}
+		$this->getSmartyTpl()->assign('send', false);
 		switch ($id) {
 			case 'add' :
+				$this->getSmartyTpl()->assign('errorMessage', '');
 				$this->setIncludeTemplate('newBlogPage.tpl');
 				break;
 			case 'new' :
@@ -70,6 +76,7 @@ class BlogPage extends Page
 		try {
 			$this->blogItems = $this->dbBlog->getVisible();
 			$this->getSmartyTpl()->assign('blogItems', $this->blogItems);
+			$this->getSmartyTpl()->assign('empty', false);
 		}
 		catch (Exception $e) {
 			$this->getSmartyTpl()->assign('empty', true);

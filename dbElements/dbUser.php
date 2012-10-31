@@ -30,20 +30,19 @@ class DbUser
 	
     function get($id) {
         global $db;
-		$result = $db->query('SELECT * FROM users WHERE id=' . $db->quote($id));
-		if ( ! DB::isError($result) && $result->numRows() != 0){
-	        $array = $result->fetchRow();
+		$result = $db->exec('SELECT * FROM users WHERE id=' . $db->quote($id));
+		if ( $result->rowCount() != 0){
+	        $array = $result->fetch();
 	        foreach ($array as $key => $value) {
 	            $this->$key = $value;
 	        }
 			return $array;
 		}
 		else {
-			if(DB::isError($result)) {
-				echo $result;
+			if( $result == -1 ) {
 				throw new Exception('Fout bij zoeken van user met id: ' . $id, 99002);
 			}
-			else if($result->numRows() == 0) {
+			else if($result->rowCount() == 0) {
 				throw new Exception('Geen resultaten bij zoeken van user met id: ' . $id, 99001);
 			}
 		}
@@ -51,20 +50,20 @@ class DbUser
 
     function getPassword($name) {
         global $db;
-		$result = $db->query('SELECT password FROM users WHERE screen_name=' . $db->quote($name));
-		if ( ! DB::isError($result) && $result->numRows() != 0){
-	        $array = $result->fetchRow();
+		$result = $db->exec('SELECT password FROM users WHERE screen_name=' . $db->quote($name));
+		if ( $result->rowCount() != 0 ){
+	        $array = $result->fetch();
 	        foreach ($array as $key => $value) {
 	            $this->$key = $value;
 	        }
 			return $array;
 		}
 		else {
-			if(DB::isError($result)) {
+			if( $result == -1 ) {
 				echo $result;
 				throw new Exception('Fout bij zoeken van user met id: ' . $id, 99002);
 			}
-			else if($result->numRows() == 0) {
+			else if($result->rowCount() == 0) {
 				throw new Exception('Geen resultaten bij zoeken van user met id: ' . $id, 99001);
 			}
 		}
@@ -72,12 +71,13 @@ class DbUser
 
     function getAll() {
         global $db;
-        $result = $db->getAll('SELECT * FROM users', DB_FETCHMODE_ASSOC);
-		if ( ! DB::isError($result)){
+        $result = $db->exec('SELECT * FROM users');
+		if ( $result->rowCount() != 0 ){
+			$result = $result->fetchAll();
 			return $result;
 		}
 		else {
-			if($result->numRows() == 0) {
+			if($result->rowCount() == 0) {
 				throw new Exception('Geen resultaten bij ophalen alle users', 99001);
 			}
 			else {
@@ -99,8 +99,8 @@ class DbUser
 
     function delete($id) {
         global $db;
-        $result = $db->query('DELETE FROM users WHERE id=' . $db->quote($id));
-		if ( ! DB::isError($result)){
+        $result = $db->delete('DELETE FROM users WHERE id=' . $db->quote($id));
+		if ( $result != -1){
 			return $result;
 		}
 		else {
@@ -111,8 +111,8 @@ class DbUser
     function update($id) {
         global $db;
 		$values = $this->createValueList();
-        $result = $db->autoExecute('users', $values, DB_AUTOQUERY_UPDATE, 'id = ' . $db->quote($id));
-		if ( ! DB::isError($result)){
+        $result = $db->update( 'users', $values, 'id = ' . $db->quote($id) );
+		if ( $result != -1 ){
 			return $result;
 		}
 		else {
@@ -123,8 +123,8 @@ class DbUser
     function insert() {
         global $db;
 		$values = $this->createValueList();
-        $result = $db->autoExecute('users', $values, DB_AUTOQUERY_INSERT);
-		if ( ! DB::isError($result)){
+        $result = $db->insert( 'users', $values );
+		if ( $result != -1 ){
 			return $result;
 		}
 		else {
@@ -137,12 +137,13 @@ class DbUser
 			$this->date_created = date ("Y-m-d H:m:s");
 		}
 		$values = array(
-		   	'screen_name'  => $this->screen_name,
+			'id'			=> $this->id,
+		   	'screen_name'   => $this->screen_name,
 		   	'password'      => $this->password,
 		   	'first_name'    => $this->first_name,
 		   	'last_name'     => $this->last_name,
 		   	'email'         => $this->email,
-		   	'usertype_id'   => $this->usertype_idindex.tpl,
+		   	'usertype_id'   => $this->usertype_id,
 		   	'picture'       => $this->picture,
 		   	'active'        => $this->active,
 		   	'date_modified' => date ("Y-m-d H:m:s"),

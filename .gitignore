@@ -2,3 +2,9 @@
 .DS_Store
 
 *.tpl.php
+
+*.sublime-workspace
+
+*.sublime-project
+
+*.config.php
