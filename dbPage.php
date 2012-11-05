@@ -1,5 +1,5 @@
 <?php
-
+// test
 class DbPage
 {
 	var $id;
