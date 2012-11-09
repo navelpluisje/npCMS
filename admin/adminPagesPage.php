@@ -64,12 +64,12 @@ class AdminPagesPage extends AdminPage
 					$this->getCategories();
 					$this->tpl->assign('edit', true);
 					$this->tpl->assign('new', true);
-					$this->tpl->assign('pageItem', $this->tempNewsItem);
+					$this->tpl->assign('pageItem', $this->tempPageItem);
 					$this->setIncludeTemplate('admin/admin_newPageItem.tpl');
 				}
 				else {
 					$this->editPageItem($id);
-					header('Location: http://localhost:8888/admin.php/pages/');
+					//header('Location: http://localhost:8888/admin.php/pages/');
 				}
 				break;
 			case 'delete' :
@@ -112,18 +112,19 @@ class AdminPagesPage extends AdminPage
 	public function addPageItem() {
 		$this->dbPage = new DbPage();
 		$this->dbPage->init(0, 
-							$this->tempNewsItem['name'], 
-							$this->tempNewsItem['short_desc'], 
-							$this->tempNewsItem['page_title'], 
-							$this->tempNewsItem['body_text'], 
-							$this->tempNewsItem['parent_id'],
-							$this->tempNewsItem['type_id'],
-							$this->tempNewsItem['user_id']);
+							$this->tempPageItem['name'], 
+							$this->tempPageItem['desc'], 
+							$this->tempPageItem['title'], 
+							$this->tempPageItem['content'], 
+							$this->tempPageItem['parent_id'],
+							$this->tempPageItem['type_id'],
+							$this->tempPageItem['user_id'],
+							$this->tempPageItem['date_created']);
 		try {
 			$this->dbPage->insert();
 		}
 		catch(Exception $e) {
-			echo 'shit';
+			print_r($e);
 		}
 	}
 
@@ -133,19 +134,20 @@ class AdminPagesPage extends AdminPage
 	 */
 	public function editPageItem($id) {
 		$this->dbPage = new DbPage();
-		$this->dbPage->init($this->tempNewsItem['id'],  
-							$this->tempNewsItem['name'], 
-							$this->tempNewsItem['short_desc'], 
-							$this->tempNewsItem['page_title'], 
-							$this->tempNewsItem['body_text'], 
-							$this->tempNewsItem['parent_id'],
-							$this->tempNewsItem['type_id'],
-							$this->tempNewsItem['user_id']);
+		$this->dbPage->init($this->tempPageItem['id'],  
+							$this->tempPageItem['name'], 
+							$this->tempPageItem['desc'], 
+							$this->tempPageItem['title'], 
+							$this->tempPageItem['content'], 
+							$this->tempPageItem['parent_id'],
+							$this->tempPageItem['type_id'],
+							$this->tempPageItem['user_id'],
+							$this->tempPageItem['date_created']);
 		try {
 			$this->dbPage->update($id);
 		}
 		catch(Exception $e) {
-			echo 'shit';
+			echo $e;
 		}
 	}
 
@@ -203,23 +205,24 @@ class AdminPagesPage extends AdminPage
 		$text = $_POST['body_text'];
 		$text = str_replace($this->pBreak, '', $text);
 		
-		$this->tempNewsItem = array(
-			'id'         => $_POST['id'], 
-			'name'       => $_POST['name'],
-			'short_desc' => $_POST['short'],
-			'page_title' => $_POST['title'],
-			'body_text'  => $text,
-			'parent_id'  => $_POST['parent'],
-			'type_id'    => $_POST['type_id'],
-			'user_id'    => $_POST['user_id'],
+		$this->tempPageItem = array(
+			'id'           => $_POST['id'], 
+			'name'         => $_POST['name'],
+			'desc'         => $_POST['short'],
+			'title'        => $_POST['title'],
+			'content'      => $text,
+			'parent_id'    => $_POST['parent'],
+			'type_id'      => $_POST['type_id'],
+			'user_id'      => $_POST['user_id'],
+			'date_created' => $_POST['date_created'],
 			);		
 			
-		if ( ! $this->valid->checkFilled($this->tempNewsItem['name'], 
-										$this->tempNewsItem['short_desc'], 
-										$this->tempNewsItem['page_title'], 
-										$this->tempNewsItem['body_text'], 
-										$this->tempNewsItem['type_id'], 
-										$this->tempNewsItem['parent_id'])) {
+		if ( ! $this->valid->checkFilled($this->tempPageItem['name'], 
+										$this->tempPageItem['desc'], 
+										$this->tempPageItem['title'], 
+										$this->tempPageItem['content'], 
+										$this->tempPageItem['type_id'], 
+										$this->tempPageItem['parent_id'])) {
 			$valid    = false;
 			$message .= 'Niet alle velden zijn ingevuld.<br />';
 		}

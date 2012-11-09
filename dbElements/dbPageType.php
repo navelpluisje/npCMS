@@ -61,15 +61,15 @@ class DbPageType
         global $db;
         $result = $db->exec( 'SELECT * 
         					  FROM page_types');
-		if ( $result->rowCount() != 0 ){
-
-			return $result;
+		if ( $result !== -1 && $result->rowCount() != 0 ){
+			$array = $result->fetchAll();
+			return $array;
 		}
 		else {
-			if ( $result->rowCount() == 0) {
+			if ( $result !== -1 && $result->rowCount() == 0) {
 				throw new Exception('Geen resultaten bij het opghalen van paginasoorten', 99001);
 			} 
-			else if ($result == -1) {
+			else if ($result === -1) {
 				throw new Exception('Fout bij ophalen van alle paginasoorten', 99002);
 			}
 		}

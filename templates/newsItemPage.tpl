@@ -4,7 +4,7 @@
 	<div class="contentBlock forground">
 		
 		<span class="close"><a href="{#pageBase#}/{#indexPage#}/{$pageId}"><img src="{#pageBase#}/img/close.png" alt="close" title="sluiten"/></a></span>
-		<h1>Nieuws</h1>
+		<h1>Wat is</h1>
 		<div class="itemList large">
 			<div class="listItem">
 				<h3>{$newsItems.title}<span class="date">{date('d M Y',strtotime($newsItems.date_created))}</span></h3>

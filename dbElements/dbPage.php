@@ -13,7 +13,7 @@ class DbPage
 	var $date_created;
 	var $date_modified;
 
-	function init($id, $name, $desc, $title, $content, $parent_id, $type_id, $user_id, $dateCreated, $dateModified) {
+	function init($id, $name, $desc, $title, $content, $parent_id, $type_id, $user_id, $dateCreated, $dateModified = 0) {
 		$this->id               = $id;
 		$this->name             = $name;
 		$this->short_desription = $desc;
@@ -28,34 +28,40 @@ class DbPage
 	
     function get($id) {
         global $db;
-		$result = $db->exec('SELECT * FROM pages WHERE id=' . $id);
-		if ($result->rowCount() != 0){
-	        $array = $result->fetchAll();
-	        $array = $array[0];
+		$result = $db->exec('SELECT * 
+							FROM pages 
+							WHERE id=' . $id);
+		if ($result !== -1 && $result->rowCount() != 0){
+	        $array = $result->fetch();
 	        foreach ($array as $key => $value) {
 	            $this->$key = $value;
 	        }
 			return $array;
 		}
 		else {
-			if($result->numRows() == 0) {
+			if($result !== -1 && $result->rowCount() == 0) {
 				throw new Exception('Geen resultaten bij zoeken van pagina met id: ' . $id, 99001);
+			}
+			else {
+				throw new Exception('Fout bij zoeken van pagina met id: ' . $id, 99002);
 			}
 		}
     }
 
     function getByName($name) {
         global $db;
-        $result = $db->query("SELECT * FROM pages  WHERE name=" . $db->quote($name));
-		if ( ! DB::isError($result) && $result->numRows() != 0){
-	        $array = $result->fetchRow();
+        $result = $db->exec('SELECT * 
+        					FROM pages  
+        					WHERE name=' . $db->quote($name));
+        if ( $result !== -1 && $result->rowCount() != 0){
+	        $array = $result->fetch();
 	        foreach ($array as $key => $value) {
 	            $this->$key = $value;
 	        }
 			return $array;
 			}
 		else {
-			if($result->numRows() == 0) {
+			if($result !== -1 && $result->rowCount() == 0) {
 				throw new Exception('Geen resultaten bij zoeken van pagina met naam: ' . $name, 99001);
 			}
 			else {
@@ -125,8 +131,9 @@ class DbPage
 
     function delete($id) {
         global $db;
-        $result = $db->query('DELETE FROM pages WHERE id=' . $db->quote($id));
-		if ( ! DB::isError($result) || $result->numRows() != 0){
+        $result = $db->delete('DELETE FROM pages 
+        						WHERE id=' . $db->quote($id));
+		if ( $result !== -1 ){
 			return $result;
 		}
 		else {
@@ -137,8 +144,8 @@ class DbPage
     function update($id) {
         global $db;
 		$values = $this->createValueList();
-        $result = $db->autoExecute('pages', $values, DB_AUTOQUERY_UPDATE, 'id = ' . $db->quote($id));
-		if ( ! DB::isError($result) || $result->numRows() != 0){
+        $result = $db->update('pages', $values, 'id = ' . $db->quote($id));
+		if ( $result !== -1 ){
 			return $result;
 		}
 		else {
@@ -149,8 +156,9 @@ class DbPage
     function insert() {
         global $db;
 		$values = $this->createValueList();
-        $result = $db->autoExecute('pages', $values, DB_AUTOQUERY_INSERT);
-		if ( ! DB::isError($result) || $result->numRows() != 0){
+		$values['date_created'] = date ("Y-m-d H:m:s");
+        $result = $db->insert('pages', $values);
+		if ( $result !== -1 ) {
 			return $result;
 		}
 		else {
@@ -163,6 +171,7 @@ class DbPage
 			$this->date_created = date ("Y-m-d H:m:s");
 		}
 		$values = array(
+			'id'                => 0,
 		   	'name'              => $this->name,
 		   	'short_description' => $this->short_desription,
 		   	'page_title'        => $this->page_title,

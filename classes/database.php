@@ -12,7 +12,8 @@ class database {
 		try {
 			$this->db = new PDO('mysql:host='.$this->valConnection['host'] . ';port=' . $this->valConnection['port'] . ';dbname=' . $this->valConnection['database'], $this->valConnection['user'], $this->valConnection['pass']);
 		} catch(PDOException $e) {
-			setError(1000, 'Er is een fout opgetreden bij het maken van een database verbinding');
+			$this->setError(1000, 'Er is een fout opgetreden bij het maken van een database verbinding');
+			return false;
 		}
 	} 
 
@@ -25,7 +26,7 @@ class database {
 		$res = $this->db->query($statement);
 		if ($this->db->errorCode() != 0) {
 			$this->rollback();
-			$error = errorInfo();
+			$error = $this->db->errorInfo();
 			$this->setError($error[1], $error[2]);
 			$res = -1;
 		} else {
@@ -99,6 +100,7 @@ class database {
 		}
 
 		$query = 'UPDATE ' . $table . ' SET ' . $set . ' WHERE ' . $where ;
+		echo $query;
 		$affected = $this->db->exec($query);
 		if ($this->db->errorCode() != 0) {
 			$this->rollback();

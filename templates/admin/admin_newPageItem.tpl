@@ -1,6 +1,6 @@
 <div id="content" class="login">
 	<h1>Bericht {if $new OR !$edit}toevoegen{else}wijzigen{/if}</h1>
-	<form action="{if $new OR !$edit}/admin/pages/add{else}/admin/pages/change/{$pageItem.id}{/if}" method="post">
+	<form action="{if $new OR !$edit}{#pageBase#}/{#adminPage#}/pages/add{else}{#pageBase#}/{#adminPage#}/pages/change/{$pageItem.id}{/if}" method="post">
 		<div class="fields">
 			<!-- Pagename -->
 			<span class="inputRow">
@@ -46,8 +46,11 @@
 				<label for="parent">Hoofdpagina</label>
 				<select name="parent">
 					<option value="">Selecteer</option>
-					{section name="i" loop=$types}
-					<option value="{$pages[i].id}" {if $pages[i].id == $pageItem.parent_id}selected="selected"{/if}>{$pages[i].name}</option>
+					{section name="i" loop=$pages}
+					<option value="{$pages[i].id}" 	{if $pages[i].id == $pageItem.parent_id}
+														selected="selected"
+													{/if}>{$pages[i].name}
+					</option>
 					{/section}
 				</select>
 			</span>
@@ -57,15 +60,19 @@
 				<select type="text" name="type_id">
 					<option value="">Selecteer</option>
 					{section name="i" loop=$types}
-					<option value="{$types[i].id}" {if $types[i].id == $pageItem.type_id}selected="selected"{/if}>{$types[i].type}</option>
+					<option value="{$types[i].id}" 	{if $types[i].id == $pageItem.type_id}
+														selected="selected"
+													{/if}>{$types[i].type}
+					</option>
 					{/section}
 				</select>
 			</span>
 		</div>
-		<input type="hidden" name="id" value="{if $edit}{$pageItem.id}{else}0{/if}"/></span>
+		<input type="hidden" name="id" value="{if $edit}{$pageItem.id}{else}0{/if}"/>
+		<input type="hidden" name="date_created" value="{if $edit}{$pageItem.date_created}{else}0{/if}"/>
 		<!-- Buttons -->
 		<div class="buttons">
-			<input type="button" onclick="parent.location='/admin/news';" class="right" value="Annuleer" />
+			<input type="button" onclick="parent.location='{#pageBase#}/{#adminPage#}/news';" class="right" value="Annuleer" />
 			<input type="submit" class="left" name="submit" value="{if $new OR !$edit}Voeg toe{else}Wijzig{/if}" />
 		</div>
 	</form>

@@ -1,0 +1,13 @@
+RewriteEngine On
+
+
+RewriteRule ^index/(.*)/(.*)/(.*)/?$ /npCMS/index.php?a=$1/$2/$3
+RewriteRule ^index/(.*)/(.*)/?$ /npCMS/index.php?a=$1/$2
+RewriteRule ^index/(.*)/?$ /npCMS/index.php?a=$1
+RewriteRule ^index /npCMS/index.php
+
+RewriteRule ^admin/(.*)/(.*)/(.*)/?$ /npCMS/admin.php?a=$1/$2/$3
+RewriteRule ^admin/(.*)/(.*)/?$ /npCMS/admin.php?a=$1/$2
+RewriteRule ^admin/(.*)/?$ /npCMS/admin.php?a=$1
+RewriteRule ^admin /npCMS/admin.php
+

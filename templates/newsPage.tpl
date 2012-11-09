@@ -3,7 +3,7 @@
 	</div>
 	<div class="contentBlock forground">
 		<span class="close"><a href="{#pageBase#}/{#indexPage#}/1"><img src="{#pageBase#}/img/close.png" alt="close" title="sluiten"/></a></span>
-		<h1>Nieuws</h1>
+		<h1>Wat is</h1>
 		<div class="itemList large">
 		{if $empty==true}
 			<div class="listItem">

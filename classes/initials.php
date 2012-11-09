@@ -19,6 +19,7 @@ $_DIR['templates_c'] = $startDir . '/templates_c';
 $config = parse_ini_file( $_DIR['configs'] . '/npCMS.conf', true);
 $_DIR['indexPage'] = $config['indexPage'];
 $_DIR['adminPage'] = $config['adminPage'];
+$_DIR['webRoot']   = $config['pageBase'];
 
 /**
  * Global database login
@@ -26,12 +27,10 @@ $_DIR['adminPage'] = $config['adminPage'];
 include_once('database.php');
 
 $db = new database($config['.DBCONN']);
-$db->connect();
-// try {
-// 	$db = new PDO('mysql:host='.$config['.DBCONN']['host'] . ';port=' . $config['.DBCONN']['port'] . ';dbname=' . $config['.DBCONN']['database'], $config['.DBCONN']['user'], $config['.DBCONN']['pass']);
-// } catch(PDOException $e) {
-// 	//TODO: Show errorpasge
-// }
-// $db->setFetchMode(PDO::FETCH_ASSOC);
+try {
+	$db->connect();
+} catch(PDOException $e) {
+ 	echo 'connectionError';
+ }
 
 ?>

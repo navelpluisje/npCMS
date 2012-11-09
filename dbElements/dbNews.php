@@ -68,7 +68,7 @@ class DbNews
     function delete($id) {
         global $db;
         $result = $db->delete( 'DELETE FROM news WHERE id=' . $db->quote( $id ));
-		if ( $result != -1 ){
+		if ( $result !== -1 ){
 			return $result;
 		}
 		else {
@@ -80,7 +80,7 @@ class DbNews
         global $db;
 		$values = $this->createValueList();
         $result = $db->update( 'news', $values, 'id =' . $db->quote( $id ));
-		if ( $result != -1 ){
+		if ( $result !== -1 ){
 			return $result;	
 		}
 		else {
@@ -93,7 +93,7 @@ class DbNews
 		$values = $this->createValueList();
 		$values['date_created'] = date ("Y-m-d H:m:s");
         $result = $db->insert('news', $values);
-		if ( $result != -1 ) {
+		if ( $result !== -1 ) {
 			return $result;
 		}
 		else {

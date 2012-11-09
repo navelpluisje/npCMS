@@ -47,9 +47,9 @@ class CreateAdminPage
 			case 'docs' :
 				$page = new AdminDocumentPage($this->param);
 				break;
-				// case 'pics' :
-				// $page = new AdminPicsPage($this->param);
-				// break;
+			case 'pics' :
+				$page = new AdminPicsPage($this->param);
+				break;
 			default :
 				$page = new AdminStartPage($this->param);
 				break;

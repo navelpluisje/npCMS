@@ -57,11 +57,11 @@ class DbBlog
 			return $result;
 		}
 		else {
-			if( $result == -1 ) {
-				throw new Exception('Fout bij zoeken van blog met id: ' . $id, 99002);
+			if( $result !== -1 && $result->rowCount() === 0 ) {
+				throw new Exception('Geen resultaten bij zoeken van blogs', 99001);
 			}
-			else if($result->numRows() == 0) {
-				throw new Exception('Geen resultaten bij zoeken van blog met id: ' . $id, 99001);
+			else if($result === -1) {
+				throw new Exception('Fout bij zoeken van blogs', 99002);
 			}
 		}
     }
