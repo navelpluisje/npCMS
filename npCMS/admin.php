@@ -1,12 +1,20 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
+/**
+ *	Login to adminpages
+ *	@author Erwin Goossen
+ *
+ */
+
+//error_reporting(E_ALL);
+//ini_set('display_errors', '1');
 
 session_start();
 include_once( '../classes/initials.php' );
 include_once( $_DIR['admin']      . '/createAdminPage.php' );
 include_once( $_DIR['configs']    . '/clMySmarty.php' );
 include_once( $_DIR['dbElements'] . '/dbUser.php' );
+
+$param = array();
 $name = (isset($_POST['name']) ? $_POST['name'] : '' );
 $pass = (isset($_POST['password']) ? $_POST['password'] : '' );
 
@@ -17,8 +25,6 @@ $tpl->assign( 'menu', false );
 $tpl->assign( 'login', false );
 $tpl->assign( 'attempts', ( isset($_SESSION['attempts']) ? $_SESSION['attempts'] : 0 ) );
 
-
-
 if ( isset( $_GET['a'] )) {
 	$param = preg_split('/\//', $_GET['a'] );
 	array_unshift( $param, "" );
@@ -26,13 +32,11 @@ if ( isset( $_GET['a'] )) {
 else if ( isset( $_SERVER['PATH_INFO'] )) {
 	$param = preg_split( '/\//', $_SERVER['PATH_INFO'] );
 }
-else {
-	$param = array();
-}
 
 unset( $param[0] );
 
 if ( count( $param ) > 0 && $param[1] == 'logout' && $param[2] == 1 ) {
+	// We're going to logout
 	session_destroy();
 	$tpl->assign( 'login', true );
 	$tpl->setTemplate( 'admin/admin_index.tpl' );
@@ -47,12 +51,13 @@ else {
 	  $_SESSION['attempts'] = 0;
 	}
 	
-	//$_SESSION['loggedIn'] = false;
-	
 	if ( ! isset($_SESSION['loggedIn'] )) {
 		$tpl->setTemplate( 'admin/admin_index.tpl' );
+
 		if ($_SESSION['attempts'] > 2) {
-			echo 'aantal pogingen is verlopen, uw account wordt geblokkeerd!';
+			// To many attempts
+			echo 'aantal pogingen is te groot, uw account wordt geblokkeerd!';
+			//Todo: Block user in db
 			$_SESSION['attempts'] = 0;
 		}
 		else {
@@ -64,12 +69,10 @@ else {
 				$user = new DbUser;
 				try {
 					$password = $user->getPassword( $name );
-//					$cleanpw = crypt(md5($pass),md5($name));
-//					if ( $cleanpw == $password['password']) {
 					if ( $pass == $password['password'] ) {
 						$_SESSION['loggedIn'] = true;
 						$_SESSION['user'] = $name;
-						setPage();
+						setPage($param);
 					}
 					else {
 	  					$_SESSION['attempts']++;
@@ -84,23 +87,11 @@ else {
 		$tpl->displayTemplate();
 	}
 	else {
-		setPage();
+		setPage($param);
 	}
 }
 
-function setPage() {
-	if ( isset($_GET['a']) ) {
-		$param = preg_split( '/\//', $_GET['a'] );
-		array_unshift( $param, "" );
-	}
-	else if( isset( $_SERVER['PATH_INFO'] )){
-		$param = preg_split( '/\//', $_SERVER['PATH_INFO'] );
-	}
-	else {
-		$param = array();	
-	}
-
-	unset( $param[0] );
+function setPage($param) {
 	if ( empty( $param ) || $param[1] == null ) {
 		$param[1] = 1;
 	}

@@ -69,7 +69,7 @@ class AdminPagesPage extends AdminPage
 				}
 				else {
 					$this->editPageItem($id);
-					//header('Location: http://localhost:8888/admin.php/pages/');
+					header('Location: http://localhost:8888/admin.php/pages/');
 				}
 				break;
 			case 'delete' :
@@ -124,7 +124,7 @@ class AdminPagesPage extends AdminPage
 			$this->dbPage->insert();
 		}
 		catch(Exception $e) {
-			print_r($e);
+			echo 'foutje';
 		}
 	}
 

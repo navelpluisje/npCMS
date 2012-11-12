@@ -8,3 +8,7 @@
 *.sublime-project
 
 *.config.php
+
+npCMS/kcfinder/upload/.thumbs/image/npCMS.png
+
+npCMS/kcfinder/upload/image/npCMS.png

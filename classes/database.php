@@ -100,7 +100,6 @@ class database {
 		}
 
 		$query = 'UPDATE ' . $table . ' SET ' . $set . ' WHERE ' . $where ;
-		echo $query;
 		$affected = $this->db->exec($query);
 		if ($this->db->errorCode() != 0) {
 			$this->rollback();
